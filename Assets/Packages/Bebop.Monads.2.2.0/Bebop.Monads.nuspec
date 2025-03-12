@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Bebop.Monads</id>
+    <version>2.2.0</version>
+    <authors>Alexander Jesner</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/cptjazz/Bebop.Monads</projectUrl>
+    <description>This project provides the monads Maybe(of T) and Try(of T), both with full support for modern async/await code.</description>
+    <copyright>Alexander Jesner, 2021</copyright>
+    <tags>maybe try monad monads</tags>
+    <repository type="git" url="https://github.com/cptjazz/Bebop.Monads.git" commit="fdd34f31676ddf7e0c2e695248ef6cc57a7b696f" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Threading.Tasks.Extensions" version="4.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

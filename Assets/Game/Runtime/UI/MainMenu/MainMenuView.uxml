@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement data-source="project://database/Assets/Game/Runtime/UI/MainMenu/MainMenuDesignTimeDataContext.asset?fileID=11400000&amp;guid=5aab6d9caa66e0e40981bc65a9a9a145&amp;type=2#MainMenuDesignTimeDataContext" name="RootElement" style="flex-grow: 1; background-color: rgb(87, 87, 87);">
+        <engine:Label text="Label" name="lbMainTitle" style="-unity-text-align: upper-center; font-size: 32px; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Library/unity%20editor%20resources?fileID=4406948444692982132&amp;guid=0000000000000000d000000000000000&amp;type=0#RobotoMono-Bold&quot;);">
+            <Bindings>
+                <engine:DataBinding property="text" data-source-path="GameName" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Label>
+    </engine:VisualElement>
+</engine:UXML>
