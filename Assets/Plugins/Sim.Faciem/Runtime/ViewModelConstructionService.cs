@@ -2,7 +2,7 @@
 
 namespace Sim.Faciem
 {
-    public class ViewModelConstructionService : IViewModelConstructionService
+    internal class ViewModelConstructionService : IViewModelConstructionService
     {
         private readonly IDIContainerBridge _diContainerBridge;
         private INavigationService _navigationService;

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 572488626ee34bd7a098169165b34c3a, type: 3}
-  m_Name: MainRegion
+  m_Name: DemoWindowRegion
   m_EditorClassIdentifier: 
-  _name: MainRegion
+  _name: Demo Window Region
   SourceCodeGeneration: 1
-  SourceFile: {fileID: 11500000, guid: 7925dc35536a4e7a9646e7aef3376a10, type: 3}
+  SourceFile: {fileID: 11500000, guid: b13a6c4577d24e46af033f7704f91b1f, type: 3}

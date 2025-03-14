@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Bebop.Monads;
 using Cysharp.Threading.Tasks;
 using Sim.Faciem.Internal;
+using UnityEngine.UIElements;
 
 namespace Sim.Faciem
 {
@@ -18,12 +20,16 @@ namespace Sim.Faciem
         
         public async UniTask NavigateTo(RegionManager regionManager, ViewId viewId, RegionName regionName)
         {
-            if (!regionManager.TryFindRegion(regionName, out var region)
-                || region.ActiveViews.Contains(viewId)
+            var maybeRegion = TryFindRegion(regionManager, regionName) as IMaybe<IRegion>;
+            
+            if (!maybeRegion.HasValue
+                || maybeRegion.Value.ActiveViews.Contains(viewId)
                 || !_viewIdRegistry.TryGetViewId(viewId, out var viewAsset))
             {
                 return;
             }
+
+            var region = maybeRegion.Value;
 
             if (region.SupportMultipleViews)
             {
@@ -56,6 +62,14 @@ namespace Sim.Faciem
                 view = viewAsset.View.Instantiate()[0];
 
                 viewModel = _viewModelConstructionService.CreateInstance(viewAsset.DataContext.Script.GetClass());
+                
+                var regions = view.Query<Region>().ToList();
+
+                foreach (var innerRegion in regions)
+                {
+                    innerRegion.RegisterDirect(viewModel);   
+                }
+                
                 region.AddView(viewId, view);
                 view.dataSource = viewModel;
             }
@@ -66,8 +80,20 @@ namespace Sim.Faciem
             {
                 throw new InvalidOperationException("View has wrong Data Source");
             }
-            
+
+            viewModel.RegionManager.Parent = regionManager;
             await viewModel.NavigateToInternal();
+        }
+
+        private Maybe<IRegion> TryFindRegion(RegionManager regionManager, RegionName regionName)
+        {
+            if (!regionManager.TryFindRegion(regionName, out var region))
+            {
+                return regionManager.Parent
+                    .Map(parent => TryFindRegion(parent, regionName));
+            }
+            
+            return Maybe.From(region);
         }
     }
 }

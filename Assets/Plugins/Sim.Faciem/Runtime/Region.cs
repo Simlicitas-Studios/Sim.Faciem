@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bebop.Monads;
 using Plugins.Sim.Faciem.Shared;
+using R3;
 using Sim.Faciem.Internal;
 using UnityEngine.UIElements;
 
@@ -12,6 +13,7 @@ namespace Sim.Faciem
         private readonly Dictionary<ViewId, VisualElement> _views;
         private readonly List<ViewId> _currentActiveViews;
         private bool _isRegistered;
+        private bool _isDetached;
 
         [UxmlAttribute] 
         public RegionNameDefinition RegionName { get; set; }
@@ -25,18 +27,12 @@ namespace Sim.Faciem
         {
             _currentActiveViews = new List<ViewId>();
             _views = new Dictionary<ViewId, VisualElement>();
-            if (UnityEngine.Application.isPlaying)
-            {
-                schedule.Execute(() =>
-                    {
-                        if (GetHierarchicalDataSourceContext().dataSource is IRegionSetup regionSetup)
-                        {
-                            regionSetup.AddRegion(this);
-                            _isRegistered = true;
-                        }
-                    }).Until(() => _isRegistered)
-                    .Every(20);
-            }
+        }
+
+        internal void RegisterDirect(IRegionSetup regionSetup)
+        {
+            regionSetup.AddRegion(this);
+            _isRegistered = true;
         }
 
         public bool TryGetView(ViewId viewId, out VisualElement view)

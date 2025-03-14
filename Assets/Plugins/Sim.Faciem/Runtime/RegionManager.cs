@@ -7,7 +7,7 @@ namespace Sim.Faciem
     {
         private readonly Dictionary<RegionName, IRegion> _regions = new();
         
-        public Maybe<RegionManager> Parent { get; }
+        public Maybe<RegionManager> Parent { get; set; }
 
         public RegionManager()
         {

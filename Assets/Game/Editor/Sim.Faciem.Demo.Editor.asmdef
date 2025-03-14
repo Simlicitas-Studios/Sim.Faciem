@@ -1,9 +1,9 @@
 {
-    "name": "Sim.Faciem.Editor",
+    "name": "Sim.Faciem.Demo.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:0256ac6985bf6624da798665f1d64436",
-        "GUID:77221876cc6b8244180b96e320b1bcd4",
+        "GUID:a07876359cfdf6049a3eeb95261265b2",
         "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],

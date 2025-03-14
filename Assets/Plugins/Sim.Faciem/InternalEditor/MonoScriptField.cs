@@ -17,7 +17,14 @@ namespace Plugins.Sim.Faciem.Editor
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            var root = new VisualElement();
+            var root = new VisualElement
+            {
+                style =
+                {
+                    flexGrow = 1,
+                    alignItems = Align.Stretch,
+                }
+            };
             
             var typeFilters = fieldInfo
                 .GetCustomAttributes<MonoScriptReferenceFilter>()
@@ -34,17 +41,31 @@ namespace Plugins.Sim.Faciem.Editor
             
             var viewModelProperty = property.FindPropertyRelative(nameof(MonoScriptReference.Script));
 
-            var label = new Label(property.displayName);
-            root.Add(label);
+            var label = new Label(property.displayName)
+            {
+                style = 
+                {
+                    width = Length.Percent(40),
+                }
+            };
 
             var valuePart = new VisualElement
             {
-                style = { marginLeft = 16 }
+                style =
+                {
+                    flexDirection = FlexDirection.Row,
+                }
             };
+            
+            valuePart.Add(label);
             
             var objectField = new ObjectField
             {
-                objectType = typeof(MonoScript)
+                objectType = typeof(MonoScript),
+                style =
+                {
+                    width = Length.Percent(60)
+                }
             };
             objectField.BindProperty(viewModelProperty);
             
@@ -55,7 +76,7 @@ namespace Plugins.Sim.Faciem.Editor
                     marginLeft = 4,
                     color = Color.red,
                     flexWrap = Wrap.Wrap,
-                    textOverflow = TextOverflow.Clip
+                    textOverflow = TextOverflow.Clip,
                 },
                 enableRichText = true
             };
@@ -100,8 +121,8 @@ namespace Plugins.Sim.Faciem.Editor
                         }));
             
             valuePart.Add(objectField);
-            valuePart.Add(validationLabel);
             root.Add(valuePart);
+            root.Add(validationLabel);
 
             return root;
         }

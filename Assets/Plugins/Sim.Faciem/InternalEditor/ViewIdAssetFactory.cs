@@ -19,5 +19,22 @@ namespace Plugins.Sim.Faciem.Editor
             var entry = AddressableHelper.CreateAssetEntry(viewIdAsset);
             entry.SetLabel(FaciemAddressables.ViewId, true, true);
         }
+        
+        
+        [MenuItem("Assets/Create/Faciem/Editor/ViewId", false, 11)]
+        public static void CreateEditorViewIdAsset()
+        {
+            var viewIdAsset = ScriptableObject.CreateInstance<EditorViewIdAsset>();
+            viewIdAsset.name = "EditorViewId";
+            
+            var currentPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+            AssetDatabase.CreateAsset(viewIdAsset, currentPath + "/" +viewIdAsset.name + ".asset");
+        }
+        
+        
+        
+        
+        
+        
     }
 }

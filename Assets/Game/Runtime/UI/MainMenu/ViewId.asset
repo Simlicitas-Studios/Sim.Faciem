@@ -19,3 +19,5 @@ MonoBehaviour:
     Script: {fileID: 11500000, guid: cf1309614dc543599571eeb2049be1f8, type: 3}
   ViewModel:
     Script: {fileID: 11500000, guid: 259a6bccb14848269d556b5f84ca71e0, type: 3}
+  SourceCodeGeneration: 0
+  SourceFile: {fileID: 0}

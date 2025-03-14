@@ -25,5 +25,14 @@ namespace Sim.Faciem
         {
             return _id != null ? _id.GetHashCode() : 0;
         }
+
+        public static ViewId From(string id)
+        {
+            var instance = new ViewId
+            {
+                _id = id
+            };
+            return instance;
+        }
     }
 }
