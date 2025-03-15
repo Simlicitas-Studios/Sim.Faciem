@@ -42,8 +42,9 @@ namespace Sim.Faciem.Commands
                 command
                     .Subscribe(_ => action.Invoke()));
             
-            return command;
             
+            _disposableContainer.Add(command);
+            return command;
         }
         
         public static implicit operator Command(CommandBuilder builder) => builder.Build();

@@ -59,7 +59,8 @@ namespace Sim.Faciem
             }
             else
             {
-                view = viewAsset.View.Instantiate()[0];
+                view = viewAsset.View.Instantiate();
+                view.style.flexGrow = 1;
 
                 viewModel = _viewModelConstructionService.CreateInstance(viewAsset.DataContext.Script.GetClass());
                 

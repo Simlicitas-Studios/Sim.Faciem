@@ -26,7 +26,8 @@ namespace Sim.Faciem.Commands
                 x => CanExecuteChanged += x,
                 x => CanExecuteChanged -= x)
                 .OfType<object, Command>()
-                .Select(command => command.CanExecute());
+                .Select(command => command.CanExecute())
+                .Prepend(CanExecute());
         }
         
     }

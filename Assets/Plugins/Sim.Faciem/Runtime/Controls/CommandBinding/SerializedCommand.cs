@@ -1,8 +1,7 @@
 ﻿using System;
-using Sim.Faciem;
 using Sim.Faciem.Commands;
 
-namespace Plugins.Sim.Faciem.Runtime.Controls.CommandBinding
+namespace Sim.Faciem.CommandBinding
 {
     [Serializable]
     public class SerializedCommand

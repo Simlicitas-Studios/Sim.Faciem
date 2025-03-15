@@ -1,10 +1,10 @@
-﻿using Plugins.Sim.Faciem.Runtime.Controls.CommandBinding;
-using Plugins.Sim.Faciem.Shared;
+﻿using Plugins.Sim.Faciem.Shared;
 using R3;
+using Sim.Faciem.CommandBinding;
 using Unity.Properties;
 using UnityEngine.UIElements;
 
-namespace Plugins.Sim.Faciem.Runtime.Controls
+namespace Sim.Faciem
 {
     [UxmlElement]
     public partial class BindableButton : Button
@@ -27,6 +27,9 @@ namespace Plugins.Sim.Faciem.Runtime.Controls
         {
             var lifeTimeDisposables = this.RegisterDisposableBag();
             
+            lifeTimeDisposables.Add(
+                _commandSubscriptions);
+            
             lifeTimeDisposables.Add(Observable.FromEvent(
                 x => clickable.clicked += x,
                 x => clickable.clicked -= x)
@@ -38,6 +41,11 @@ namespace Plugins.Sim.Faciem.Runtime.Controls
 
         private void RegisterCommandCallbacks()
         {
+            if (_command?.Command == null)
+            {
+                return;
+            }
+            
             _commandSubscriptions.Dispose();
             _commandSubscriptions = new DisposableBag();
             

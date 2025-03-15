@@ -2,7 +2,7 @@
 
 namespace Game.Editor.DemoWindow1
 {
-    public interface IFirstDemoWindowDataContext : IDataContext
+    public interface IFirstDemoDataContext : IDataContext
     {
     }
 }

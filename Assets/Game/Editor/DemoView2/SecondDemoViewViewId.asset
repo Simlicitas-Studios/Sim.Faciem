@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89cf449c2c44a5f8474539a8bf9bc15, type: 3}
-  m_Name: DemoWindow1ViewId
+  m_Name: SecondDemoViewViewId
   m_EditorClassIdentifier: 
   ViewId:
-    _id: First Demo Window
-  View: {fileID: 9197481963319205126, guid: 215ccded23a4c494aa16ffddb4a75602, type: 3}
+    _id: SecondDemoView
+  View: {fileID: 9197481963319205126, guid: 9da2b0b07a7ea8b4eac8183163d1992f, type: 3}
   DataContext:
-    Script: {fileID: 11500000, guid: 9bc8c60700d242ff93d7bcf1077ff698, type: 3}
+    Script: {fileID: 11500000, guid: bdc674492edf4c2fbea84dc7be8b0cd1, type: 3}
   ViewModel:
-    Script: {fileID: 11500000, guid: 464a96f04dcd449b9c0c941f7bff48d2, type: 3}
+    Script: {fileID: 11500000, guid: cd74edd9bcc840eb8d51a86ea49ac8b7, type: 3}
   SourceCodeGeneration: 1
   SourceFile: {fileID: 11500000, guid: 0385b096cadd452d9d5d7f9c2e988962, type: 3}

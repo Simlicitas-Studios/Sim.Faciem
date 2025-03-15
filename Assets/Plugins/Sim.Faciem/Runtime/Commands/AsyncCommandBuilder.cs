@@ -46,6 +46,7 @@ namespace Sim.Faciem.Commands
                         await asyncAction.Invoke(ct);
                     }));
             
+            _disposableContainer.Add(command);
             return command;
         }
         

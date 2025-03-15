@@ -49,8 +49,8 @@ namespace Plugins.Sim.Faciem.Editor
                 var headerLineEnd = text.IndexOf('\n', lineStartIndex + 1);
                 var propertyLineEnd = text.IndexOf('\n', headerLineEnd + 1);
 
-                text = text.Remove(lineStartIndex - 2, (propertyLineEnd - lineStartIndex) + 3);
-                index = lineStartIndex - 2;
+                text = text.Remove(lineStartIndex, (propertyLineEnd - lineStartIndex) + 2);
+                index = lineStartIndex - 1;
             }
             else
             {
