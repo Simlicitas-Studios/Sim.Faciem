@@ -1,9 +1,11 @@
-﻿using UnityEditor;
+﻿using Plugins.Sim.Faciem.Runtime.Controls.CommandBinding;
+using Sim.Faciem.Commands;
+using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace Sim.Faciem.Converters
+namespace Plugins.Sim.Faciem.Runtime.Controls
 {
-    internal class SimConverterRegistry
+    public class ControlConverterRegistry
     {
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
@@ -12,10 +14,7 @@ namespace Sim.Faciem.Converters
 #endif
         public static void RegisterConverters()
         {
-    
-            ConverterGroups.RegisterGlobalConverter((ref bool handle) => handle 
-                ? new StyleEnum<DisplayStyle>(DisplayStyle.Flex) 
-                : new StyleEnum<DisplayStyle>(DisplayStyle.None));
+            ConverterGroups.RegisterGlobalConverter((ref Command command) => new SerializedCommand(command));
             
             // // Create local Converters.
             // var group = new ConverterGroup("Bool-Visibility");
