@@ -3,12 +3,12 @@ using Sim.Faciem;
 
 namespace Plugins.Sim.Faciem.Editor.Navigation
 {
-    public class EditorWindowNavigationService : IEditorWindowNavigationService
+    public class EditorToolNavigationService : IEditorToolNavigationService
     {
-        private readonly FaciemEditorWindow _editorWindow;
+        private readonly IRegionManagerOwner _editorWindow;
         private readonly INavigationService _navigationService;
 
-        public EditorWindowNavigationService(FaciemEditorWindow editorWindow, INavigationService navigationService)
+        public EditorToolNavigationService(IRegionManagerOwner editorWindow, INavigationService navigationService)
         {
             _editorWindow = editorWindow;
             _navigationService = navigationService;

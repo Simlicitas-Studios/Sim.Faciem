@@ -10,9 +10,9 @@ namespace Sim.Faciem
     [UxmlElement]
     public partial class Region : VisualElement, IRegion
     {
+        private readonly Maybe<RegionName> _regionName;
         private readonly Dictionary<ViewId, VisualElement> _views;
         private readonly List<ViewId> _currentActiveViews;
-        private bool _isRegistered;
         private bool _isDetached;
 
         [UxmlAttribute] 
@@ -23,16 +23,16 @@ namespace Sim.Faciem
         
         public IReadOnlyList<ViewId> ActiveViews => _currentActiveViews;
         
+        public Region(RegionName regionName)
+            : this()
+        {
+            _regionName = Maybe.From(regionName);
+        }
+        
         public Region()
         {
             _currentActiveViews = new List<ViewId>();
             _views = new Dictionary<ViewId, VisualElement>();
-        }
-
-        internal void RegisterDirect(IRegionSetup regionSetup)
-        {
-            regionSetup.AddRegion(this);
-            _isRegistered = true;
         }
 
         public bool TryGetView(ViewId viewId, out VisualElement view)
@@ -86,6 +86,11 @@ namespace Sim.Faciem
             _currentActiveViews.Clear();
         }
         
-        RegionName IRegion.RegionName => RegionName.Name;
+        RegionName IRegion.RegionName => _regionName.OrElse(() => RegionName.Name);
+
+        internal void RegisterDirect(IRegionSetup regionSetup)
+        {
+            regionSetup.AddRegion(this);
+        }
     }
 }

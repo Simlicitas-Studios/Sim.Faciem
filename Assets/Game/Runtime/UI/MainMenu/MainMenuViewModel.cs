@@ -7,7 +7,7 @@ using Unity.Properties;
 namespace Game.Runtime.UI.MainMenu
 {
     [Serializable]
-    public class MainMenuViewModel : ViewModel, IMainMenuDataContext
+    public class MainMenuViewModel : ViewModel<MainMenuViewModel>, IMainMenuDataContext
     {
         private const string OriginalGameName = "Runtime Simplicitas Faciem";
 

@@ -1,4 +1,4 @@
-﻿namespace Sim.Faciem.Internal
+﻿namespace Sim.Faciem
 {
     internal interface IRegionSetup
     {

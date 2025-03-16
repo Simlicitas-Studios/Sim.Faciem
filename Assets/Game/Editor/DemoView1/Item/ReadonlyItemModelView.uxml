@@ -1,0 +1,19 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <engine:VisualElement name="ItemModelRoot" data-source-type="Game.Editor.DemoWindow1.Item.ItemModel, Sim.Faciem.Demo.Editor" style="flex-grow: 0; width: 200px; height: 200px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px;">
+        <engine:Label text="Sword" name="lbName" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 18px;">
+            <Bindings>
+                <engine:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Label>
+        <engine:Label text="20.4" name="lbPrice" enable-rich-text="false" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 14px;">
+            <Bindings>
+                <engine:DataBinding property="text" data-source-path="Price" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Label>
+        <engine:Label text="Rare" name="lbRarity" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 14px;">
+            <Bindings>
+                <engine:DataBinding property="text" data-source-path="Rarity" binding-mode="ToTarget" />
+            </Bindings>
+        </engine:Label>
+    </engine:VisualElement>
+</engine:UXML>

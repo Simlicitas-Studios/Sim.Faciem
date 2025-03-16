@@ -1,0 +1,5 @@
+.itemValue {
+    height: 40px;
+    flex-direction: column;
+    width: 33%;
+}

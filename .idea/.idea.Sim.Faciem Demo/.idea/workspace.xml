@@ -5,43 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ede8152-8bbf-4780-bf60-c8dae936943d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/ISecondDemoDataContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/ISecondDemoDataContext.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/SecondDemoViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/SecondDemoViewModel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedCommandPropertyDrawer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedCommandPropertyDrawer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/ICommandBuilderFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/ICommandBuilderFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/ViewModelCommandBuilderFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/ViewModelCommandBuilderFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/CommandBinding/SerializedCommandConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/CommandBinding/SerializedCommandConverter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoSceneOverlay.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoSceneOverlay/DemoSceneToolbarOverlay.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoSceneOverlay/DemoSceneToolbarOverlay.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/Item.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/Item/ItemModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/Item/ItemModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/Item/ItemRarity.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/Item/ItemRarity.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemToolbarOverlay.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemToolbarOverlay.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/IRegionManagerOwner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/IRegionManagerOwner.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedListReferencePropertyDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedListReferencePropertyDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/BindableListView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/BindableListView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ListBinding.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ListBinding/SerializedListConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ListBinding/SerializedListConverter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ListBinding/SerializedListReference.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ListBinding/SerializedListReference.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/PropertyObserver.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/PropertyObserver/IViewModelPropertyObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/PropertyObserver/IViewModelPropertyObserver.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/PropertyObserver/ViewModelPropertyObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/PropertyObserver/ViewModelPropertyObserver.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sim.Faciem Demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sim.Faciem Demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoEditorWindowView.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoEditorWindowView.uxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoEditorWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoEditorWindowViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/DemoWindow1ViewId.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/DemoWindow1ViewId.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoWindowView.uxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoWindowView.uxml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoWindowViewModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoWindowViewModel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoViewModel.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoWindowDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoDataContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoWindowDataContext.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoDataContext.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/IDemoEditorWindowDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/IDemoEditorWindowDataContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/WellKnownDemoViewIds.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/WellKnownDemoViewIds.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/ViewIdCodeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/ViewIdCodeGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoView.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoView.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/FirstDemoViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView1/IFirstDemoDataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/SecondDemoViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Editor/DemoView2/SecondDemoViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Game/Runtime/UI/MainMenu/MainMenuViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game/Runtime/UI/MainMenu/MainMenuViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemEditorWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/EditorWindowNavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/EditorToolNavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/EditorWindowNavigationService.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/EditorToolNavigationService.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/IEditorWindowNavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/IEditorToolNavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/IEditorWindowNavigationService.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Navigation/IEditorToolNavigationService.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Sim.Faciem.Editor.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/Sim.Faciem.Editor.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedCommandPropertyDrawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/Controls/SerializedCommandPropertyDrawer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/BaseViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/BaseViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/AsyncCommandBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/AsyncCommandBuilder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/CommandBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/CommandBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/BindableButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/BindableButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/CommandBinding/SerializedCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/CommandBinding/SerializedCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ControlConverterRegistry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/ControlConverterRegistry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/Sim.Faciem.Controls.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Controls/Sim.Faciem.Controls.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/NavigationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/NavigationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Converters/SimConverterRegistry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Converters/SimConverterRegistry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/IViewModelConstructionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/IViewModelConstructionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Internal/IRegionSetup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Internal/IRegionSetup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Internal/IRegionSetup.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Internal/IRegionSetup.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Region.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Region.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/RegionManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/RegionManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ShellViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ShellViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ViewIdAsset.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ViewIdAsset.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/ViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,12 +78,38 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/e1349e8da9c0471283f06e515075baad91400/2d/c0b8dad7/0200003E.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/e1349e8da9c0471283f06e515075baad91400/3a/c4042b78/0200017A.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/e1349e8da9c0471283f06e515075baad91400/dd/25678184/02000050.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/13c0c460649d4ce49f991e2c222fa63546ae00/44/c18cfbba/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/13c0c460649d4ce49f991e2c222fa63546ae00/58/d542d490/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/13c0c460649d4ce49f991e2c222fa63546ae00/e6/8b6efe2e/IList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/13c0c460649d4ce49f991e2c222fa63546ae00/e9/84788f6e/String.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/22f6e3399a3d40ea85fe7d26f386db3f21e00/8b/3fc59849/CreatePropertyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/22f6e3399a3d40ea85fe7d26f386db3f21e00/9c/d13a1a00/TypeConverter`2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/22f6e3399a3d40ea85fe7d26f386db3f21e00/ed/c51346c8/PropertyPath.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/17/9218c9c2/CollectionViewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/17/a9b934d5/StylePropertyReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/1f/960f98bd/EventBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/20/971be0a0/ListViewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/2d/027d7ee1/ListView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/32/b6b4ca83/ConverterGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/4b/8f9a247a/BaseListView.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/4c/ae7bfb5f/TextElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/52/135b946b/VisualElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/6f/3ae2470e/BaseVerticalCollectionView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/6f/6d1e1c8b/CallbackEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/7e/101cd144/MultiColumnListViewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/a5/49c407d9/DataBinding.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/ae/0c2f5322/UxmlSerializedDataUtility.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/af/c61ad96e/VerticalVirtualizationController`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/bf/87b40d6e/BaseListViewController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/d6/a24b0a99/CollectionVirtualizationController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/d8/04dc15fc/ConverterGroups.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/ee/0b85ebe3/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/f4/75c7a8cb/LayoutDataStore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44f3679c53d1477a9c6e72f269e3a3a91de200/24/7c8b7606/CreateAssetMenuAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/59f75a6879df4df1ac0158cb4ed845e670800/d0/c1f6adf5/VisualTreeEditorUpdater.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/38/3604a281/EventHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/66/98eafd1b/Stack`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/612ea0208cc847f49d539e6511ed3cd51df400/36/caae65cd/ProfilerMarker.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/743d97223c8b4d05a0ff33c535beb3d71f8c00/03/9362ffe1/LayoutDataStore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/743d97223c8b4d05a0ff33c535beb3d71f8c00/04/d0d187d6/CallbackEventHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/743d97223c8b4d05a0ff33c535beb3d71f8c00/0c/d057e952/Label.cs" root0="FORCE_HIGHLIGHTING" />
@@ -87,17 +131,27 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/9b/cd7a34b3/MonoScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/b7/87c4dd28/DragAndDrop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/e6/52ba6cd2/ObjectField.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa1f86fad227490683863fb0d0f47a129b8e00/81/0ba628ed/ToolbarButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa1f86fad227490683863fb0d0f47a129b8e00/84/ba8e178c/OverlayToolbar.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa1f86fad227490683863fb0d0f47a129b8e00/95/1b47ccc5/EditorToolbar.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa1f86fad227490683863fb0d0f47a129b8e00/bc/2220cf9b/ToolbarOverlay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa1f86fad227490683863fb0d0f47a129b8e00/df/607b7257/Overlay.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/befd8fbe8f924ad191d818dc091e8a4813000/92/c4ef70c4/EditorToolbarButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/0f/48b4bcad/SingleAssignmentDisposableCore.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/29/b770658b/ReactiveProperty`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/40/12455c62/DisposableBag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/62/53f311b9/ReadOnlyReactiveProperty`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/75/96d3e715/ReactiveCommand.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/88/97240255/ReactiveCommand`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/b0/9c37c8aa/IBindableReactiveProperty.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1349e8da9c0471283f06e515075baad91400/e3/8336ae79/FromEvent`2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1d4dc0c4dbd4043ac9ba30e66ba792170a00/9c/31cfe2dc/UxmlAttributeConverter`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e1d4dc0c4dbd4043ac9ba30e66ba792170a00/ad/7542b687/UxmlSerializedDataCreator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e483e845bd2d4cacb84c5bd7da666f7821e00/f9/55a8615b/PropertyPath.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ed969b0e627d471da4848289f9c322df46ae00/b9/69389fce/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/Commands/ViewModelCommandBuilderFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Runtime/IDIRegistrationBridge.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@8e35566084c7/Runtime/UniTaskScheduler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@22ebcc83720a/Runtime/UGUI/EventSystem/EventHandle.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -125,7 +179,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.41f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.42f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;D:\Projects\UnityPublisher\Simplicitas Studios\Simplicitas.Faciem\Sim.Faciem Demo&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Projects\UnityPublisher\Simplicitas Studios\Simplicitas.Faciem\Sim.Faciem Demo" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -133,7 +187,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.41f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.42f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;D:\Projects\UnityPublisher\Simplicitas Studios\Simplicitas.Faciem\Sim.Faciem Demo&quot; -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Projects\UnityPublisher\Simplicitas Studios\Simplicitas.Faciem\Sim.Faciem Demo" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -153,10 +207,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="30724">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23904">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="30724" />
+      <option name="pid" value="23904" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -182,7 +236,8 @@
       <workItem from="1741963143268" duration="9715000" />
       <workItem from="1741973840712" duration="677000" />
       <workItem from="1741974559931" duration="3174000" />
-      <workItem from="1742041289357" duration="11797000" />
+      <workItem from="1742041289357" duration="14549000" />
+      <workItem from="1742135793493" duration="18318000" />
     </task>
     <servers />
   </component>

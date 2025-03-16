@@ -24,6 +24,11 @@ namespace Sim.Faciem
             _regions.Add(region.RegionName, region);
         }
 
+        public void RemoveRegion(RegionName regionName)
+        {
+            _regions.Remove(regionName);
+        }
+        
         public bool TryFindRegion(RegionName regionName, out IRegion region)
         {
             return _regions.TryGetValue(regionName, out region);

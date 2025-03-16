@@ -9,7 +9,7 @@ using R3;
 
 namespace Plugins.Sim.Faciem.Editor
 {
-    public class DemoEditorWindowViewModel : ViewModel, IDemoEditorWindowDataContext
+    public class DemoEditorWindowViewModel : ViewModel<DemoEditorWindowViewModel>, IDemoEditorWindowDataContext
     {
         private readonly List<ViewId> _views = new(){
             WellKnownDemoViewIds.FirstDemoView,

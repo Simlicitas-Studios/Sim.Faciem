@@ -3,13 +3,12 @@ using Cysharp.Threading.Tasks;
 using Plugins.Sim.Faciem.Editor.DI;
 using Plugins.Sim.Faciem.Editor.Navigation;
 using Sim.Faciem;
-using Sim.Faciem.Internal;
 using UnityEditor;
 using UnityEngine;
 
 namespace Plugins.Sim.Faciem.Editor
 {
-    public abstract class FaciemEditorWindow : EditorWindow, IRegionSetup
+    public abstract class FaciemEditorWindow : EditorWindow, IRegionManagerOwner
     {
         [SerializeField]
         private RegionNameDefinition _windowRegionName;
@@ -17,17 +16,19 @@ namespace Plugins.Sim.Faciem.Editor
         [SerializeField]
         private EditorViewIdAsset _initialViewId;
 
-        internal RegionManager RegionManager = new();
-        
+        private RegionManager _regionManager = new();
+
+        RegionManager IRegionManagerOwner.RegionManager => _regionManager;
+
         protected RegionName WindowRegionName => _windowRegionName.Name;
         
-        protected IEditorWindowNavigationService Navigation { get; private set; }
+        protected IEditorToolNavigationService Navigation { get; private set; }
         
         private async UniTaskVoid CreateGUI()
         {
             rootVisualElement.dataSource = this;
             var navigationService = EditorInjector.Instance.ResolveInstance<INavigationService>();
-            Navigation = new EditorWindowNavigationService(this, navigationService);
+            Navigation = new EditorToolNavigationService(this, navigationService);
             
             var region = new Region
             {
@@ -39,7 +40,7 @@ namespace Plugins.Sim.Faciem.Editor
             };
 
             rootVisualElement.Add(region);
-            region.RegisterDirect(this);
+            _regionManager.AddRegion(region);
 
             await Navigation.Navigate(_initialViewId.ViewId, WindowRegionName);
 
@@ -59,11 +60,6 @@ namespace Plugins.Sim.Faciem.Editor
         protected virtual UniTask NavigateAway()
         {
             return UniTask.CompletedTask;
-        }
-
-        public void AddRegion(IRegion region)
-        {
-            RegionManager.AddRegion(region);
         }
     }
 }

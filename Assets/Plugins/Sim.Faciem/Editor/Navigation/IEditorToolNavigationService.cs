@@ -3,7 +3,7 @@ using Sim.Faciem;
 
 namespace Plugins.Sim.Faciem.Editor.Navigation
 {
-    public interface IEditorWindowNavigationService
+    public interface IEditorToolNavigationService
     {
         UniTask Navigate(ViewId viewId, RegionName region);
     }

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using R3;
+using UnityEditor;
 using UnityEngine.UIElements;
 
 namespace Sim.Faciem.Converters
@@ -12,7 +13,7 @@ namespace Sim.Faciem.Converters
 #endif
         public static void RegisterConverters()
         {
-    
+            // bool to DisplayStyle
             ConverterGroups.RegisterGlobalConverter((ref bool handle) => handle 
                 ? new StyleEnum<DisplayStyle>(DisplayStyle.Flex) 
                 : new StyleEnum<DisplayStyle>(DisplayStyle.None));

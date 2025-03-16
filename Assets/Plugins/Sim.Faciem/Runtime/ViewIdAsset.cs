@@ -15,7 +15,7 @@ namespace Sim.Faciem
         public MonoScriptReference DataContext;
 
         [MonoScriptReferenceDependentFilter(nameof(DataContext))]
-        [MonoScriptReferenceFilter(typeof(ViewModel))]
+        [MonoScriptReferenceFilter(typeof(ViewModel<>))]
         public MonoScriptReference ViewModel;
         
         

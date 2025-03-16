@@ -22,6 +22,7 @@ namespace Sim.Faciem.Commands
             IsVisibleObs = isVisibleObs;
             
             CanExecuteObs = Observable.FromEvent<EventHandler, object>(
+                    
                 x => (obj, args) => x(obj),
                 x => CanExecuteChanged += x,
                 x => CanExecuteChanged -= x)

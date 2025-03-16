@@ -2,7 +2,7 @@
 
 namespace Sim.Faciem
 {
-    public class ShellViewModel : BaseViewModel
+    public class ShellViewModel : ViewModel<ShellViewModel>
     {
         public ShellViewModel()
         {
