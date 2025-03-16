@@ -33,16 +33,16 @@ The Region System in Sim.Faciem enables developers to dynamically compose and di
 Imagine a UI layout where you have multiple regions defined:  
 ```
 +-----------------------+
-|      Header Region     |
+|      Header Region    |
 +-----------------------+
 |                       |
-|     Main Content       |
-|     +-------------+    |
-|     |  Sub Region  |    |
-|     +-------------+    |
+|     Main Content      |
+|     +-------------+   |
+|     |  Sub Region |   |
+|     +-------------+   |
 |                       |
 +-----------------------+
-|      Footer Region     |
+|      Footer Region    |
 +-----------------------+
 ```
 Each of these regions can dynamically host different views based on navigation requests. Regions can also be nested to achieve highly modular UI designs.
