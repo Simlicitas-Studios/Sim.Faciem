@@ -16,7 +16,7 @@ The library fully integrates [UniTask](https://github.com/Cysharp/UniTask) and [
 2. **ViewId System**: Manages views and their associated view models through assets.
 3. **Region System**: Inspired by Prism and Angular's router-outlet, allowing dynamic view placement and nesting.
 4. **Navigation System**: Handles view transitions and manages region contexts.
-5. **Property Change Notifications**: Uses Unityâ€™s built-in binding system to update views automatically.
+5. **Property Change Notifications**: Uses Unity's built-in binding system to update views automatically.
 6. **Lightweight DI Support**: A minimal DI framework that can be replaced by any DI solution.
 7. **Editor Integration**: Seamlessly works with editor windows and provides a lightweight DI container for editor use.
 
@@ -27,7 +27,7 @@ The library fully integrates [UniTask](https://github.com/Cysharp/UniTask) and [
 ### Concept
 The Region System in Sim.Faciem enables developers to dynamically compose and display views within specified areas of the UI. This concept is inspired by:  
 - [Prism Framework](https://github.com/PrismLibrary/Prism)  
-- Angularâ€™s `router-outlet` feature  
+- Angular's `router-outlet` feature  
 
 #### Illustration
 Imagine a UI layout where you have multiple regions defined:  
