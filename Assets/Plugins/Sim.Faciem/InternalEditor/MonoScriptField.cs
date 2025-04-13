@@ -102,7 +102,7 @@ namespace Plugins.Sim.Faciem.Editor
                                 var missingTypes = typeFilters
                                     .Select(typeFilter => typeFilter.TargetType)
                                     .Concat(dependentTypes)
-                                    .Where(typeFilter => !typeFilter.IsAssignableFrom(type))
+                                    .Where(typeFilter => !IsAssignableTo(type, typeFilter))
                                     .ToList();
 
                                 if (missingTypes.Any())
@@ -125,6 +125,25 @@ namespace Plugins.Sim.Faciem.Editor
             root.Add(validationLabel);
 
             return root;
+        }
+
+        private bool IsAssignableTo(Type type, Type filterType)
+        {
+            if (filterType.IsGenericType)
+            {
+                var targetType = type;
+
+                do
+                {
+                    if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == filterType)
+                    {
+                        return true;
+                    }
+                    targetType = targetType.BaseType;
+                } while (targetType != null && targetType != typeof(object));
+            }
+            
+            return filterType.IsAssignableFrom(type);
         }
     }
 }

@@ -1,0 +1,19 @@
+{
+    "name": "Sim.Animatio.Editor",
+    "rootNamespace": "Sim.Animatio.Editor",
+    "references": [
+        "GUID:0256ac6985bf6624da798665f1d64436",
+        "GUID:a07876359cfdf6049a3eeb95261265b2",
+        "GUID:c68e2f7abac45cd409bf1e2a2e91700e",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

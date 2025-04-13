@@ -24,6 +24,7 @@ namespace Plugins.Sim.Faciem.Editor
         
         protected IEditorToolNavigationService Navigation { get; private set; }
         
+        
         private async UniTaskVoid CreateGUI()
         {
             rootVisualElement.dataSource = this;

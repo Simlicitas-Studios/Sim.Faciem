@@ -137,7 +137,9 @@ namespace Plugins.Sim.Faciem.Editor.DI
 
             foreach (var viewId in viewIdAssets)
             {
-                if (viewId.DataContext == null || viewId.ViewModel == null)
+                if (viewId.DataContext == null || viewId.ViewModel == null
+                    || viewId.DataContext.Script == null || viewId.ViewModel.Script == null
+                    || viewId.View == null)
                 {
                     continue;
                 }
