@@ -1,138 +1,110 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Sim.Animatio
+namespace Sim.Animatio.Editor.Controls
 {
     public class KeyFrameDragDropManipulator : PointerManipulator
     {
-        private Vector2 TargetStartPosition { get; set; }
+        private readonly List<VisualElement> _selectedElements;
+        private bool _isDragging;
+        private readonly Dictionary<VisualElement, VisualElement> _moveTargets = new();
+        private Vector2 _startMousePos;
 
-        private Vector3 PointerStartPosition { get; set; }
-
-        private bool Enabled { get; set; }
-
-        private VisualElement Root { get; }
+        private List<VisualElement> _dropZones;
         
-        // Write a constructor to set target and store a reference to the
-        // root of the visual tree.
-        public KeyFrameDragDropManipulator(VisualElement root, VisualElement target)
+        public KeyFrameDragDropManipulator(List<VisualElement> selected)
         {
-            this.target = target;
-            Root = root;
+            _selectedElements = selected;
         }
 
         protected override void RegisterCallbacksOnTarget()
         {
-            // Register the four callbacks on target.
-            target.RegisterCallback<PointerDownEvent>(PointerDownHandler);
-            target.RegisterCallback<PointerMoveEvent>(PointerMoveHandler);
-            target.RegisterCallback<PointerUpEvent>(PointerUpHandler);
-            target.RegisterCallback<PointerCaptureOutEvent>(PointerCaptureOutHandler);
+            target.RegisterCallback<PointerDownEvent>(OnPointerDown);
+            target.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+            target.RegisterCallback<PointerUpEvent>(OnPointerUp);
         }
 
         protected override void UnregisterCallbacksFromTarget()
         {
-            // Un-register the four callbacks from target.
-            target.UnregisterCallback<PointerDownEvent>(PointerDownHandler);
-            target.UnregisterCallback<PointerMoveEvent>(PointerMoveHandler);
-            target.UnregisterCallback<PointerUpEvent>(PointerUpHandler);
-            target.UnregisterCallback<PointerCaptureOutEvent>(PointerCaptureOutHandler);
+            target.UnregisterCallback<PointerDownEvent>(OnPointerDown);
+            target.UnregisterCallback<PointerMoveEvent>(OnPointerMove);
+            target.UnregisterCallback<PointerUpEvent>(OnPointerUp);
         }
 
-        // This method stores the starting position of target and the pointer,
-        // makes target capture the pointer, and denotes that a drag is now in progress.
-        private void PointerDownHandler(PointerDownEvent evt)
+        private void OnPointerDown(PointerDownEvent evt)
         {
-            TargetStartPosition = target.transform.position;
-            PointerStartPosition = evt.position;
+            if (evt.button != 0 || _selectedElements.Count == 0)
+            {
+                return;
+            }
+            
+            _dropZones = target.Query<VisualElement>(className: "tick-value").ToList();
+            
+            _isDragging = true;
             target.CapturePointer(evt.pointerId);
-            Enabled = true;
-        }
 
-        // This method checks whether a drag is in progress and whether target has captured the pointer.
-        // If both are true, calculates a new position for target within the bounds of the window.
-        private void PointerMoveHandler(PointerMoveEvent evt)
-        {
-            if (Enabled && target.HasPointerCapture(evt.pointerId))
+            _startMousePos = evt.position;
+            _moveTargets.Clear();
+
+            foreach (var selectedKeyframe in _selectedElements)
             {
-                Vector3 pointerDelta = evt.position - PointerStartPosition;
-
-                target.transform.position = new Vector2(
-                    Mathf.Clamp(TargetStartPosition.x + pointerDelta.x, 0, target.panel.visualTree.worldBound.width),
-                    target.transform.position.y);
+                selectedKeyframe.RemoveFromClassList("tick-value-keyframe");
+                selectedKeyframe.AddToClassList("tick-value-keyframe-preview");
+                _moveTargets[selectedKeyframe] = selectedKeyframe;
             }
+
+            evt.StopPropagation();
         }
 
-        // This method checks whether a drag is in progress and whether target has captured the pointer.
-        // If both are true, makes target release the pointer.
-        private void PointerUpHandler(PointerUpEvent evt)
+        private void OnPointerMove(PointerMoveEvent evt)
         {
-            if (Enabled && target.HasPointerCapture(evt.pointerId))
+            if (!_isDragging) return;
+            
+            
+            var xDelta = _startMousePos.x - evt.position.x;
+            
+            foreach (var selectedKeyframe in _selectedElements)
             {
-                target.ReleasePointer(evt.pointerId);
-            }
-        }
+                var pos = new Vector2(selectedKeyframe.worldBound.position.x - xDelta, selectedKeyframe.worldBound.position.y);
 
-        // This method checks whether a drag is in progress. If true, queries the root
-        // of the visual tree to find all slots, decides which slot is the closest one
-        // that overlaps target, and sets the position of target so that it rests on top
-        // of that slot. Sets the position of target back to its original position
-        // if there is no overlapping slot.
-        private void PointerCaptureOutHandler(PointerCaptureOutEvent evt)
-        {
-            if (Enabled)
-            {
-                VisualElement slotsContainer = Root.Q<VisualElement>("slots");
-                UQueryBuilder<VisualElement> allSlots =
-                    slotsContainer.Query<VisualElement>(className: "slot");
-                UQueryBuilder<VisualElement> overlappingSlots =
-                    allSlots.Where(OverlapsTarget);
-                VisualElement closestOverlappingSlot =
-                    FindClosestSlot(overlappingSlots);
-                Vector3 closestPos = Vector3.zero;
-                if (closestOverlappingSlot != null)
+                var maybeKeyFrameContainer = _dropZones.FirstOrDefault(dropZone => dropZone.worldBound.Contains(pos));
+
+                if (maybeKeyFrameContainer == null)
                 {
-                    closestPos = RootSpaceOfSlot(closestOverlappingSlot);
-                    closestPos = new Vector2(closestPos.x - 5, closestPos.y - 5);
+                    return;
                 }
-
-                target.transform.position =
-                    closestOverlappingSlot != null ? closestPos : TargetStartPosition;
-
-                Enabled = false;
+                
+                if (_moveTargets.TryGetValue(selectedKeyframe, out var currentTarget)
+                    && currentTarget != maybeKeyFrameContainer)
+                {
+                    currentTarget.RemoveFromClassList("tick-value-keyframe-preview");
+                }
+            
+                maybeKeyFrameContainer.AddToClassList("tick-value-keyframe-preview");
+                _moveTargets[selectedKeyframe] = maybeKeyFrameContainer;
             }
         }
 
-        private bool OverlapsTarget(VisualElement slot)
+        private void OnPointerUp(PointerUpEvent evt)
         {
-            return target.worldBound.Overlaps(slot.worldBound);
-        }
+            if (!_isDragging) return;
 
-        private VisualElement FindClosestSlot(UQueryBuilder<VisualElement> slots)
-        {
-            List<VisualElement> slotsList = slots.ToList();
-            float bestDistanceSq = float.MaxValue;
-            VisualElement closest = null;
-            foreach (VisualElement slot in slotsList)
+            _isDragging = false;
+            target.ReleasePointer(evt.pointerId);
+            evt.StopPropagation();
+
+            foreach (var selectedKeyFrame in _selectedElements)
             {
-                Vector3 displacement =
-                    RootSpaceOfSlot(slot) - target.transform.position;
-                float distanceSq = displacement.sqrMagnitude;
-                if (distanceSq < bestDistanceSq)
+                selectedKeyFrame.AddToClassList("tick-value-keyframe");
+            
+                if (_moveTargets.TryGetValue(selectedKeyFrame, out var currentTarget))
                 {
-                    bestDistanceSq = distanceSq;
-                    closest = slot;
+                    currentTarget.RemoveFromClassList("tick-value-keyframe-preview");
                 }
             }
-
-            return closest;
-        }
-
-        private Vector3 RootSpaceOfSlot(VisualElement slot)
-        {
-            Vector2 slotWorldSpace = slot.parent.LocalToWorld(slot.layout.position);
-            return Root.WorldToLocal(slotWorldSpace);
+            
         }
     }
 }

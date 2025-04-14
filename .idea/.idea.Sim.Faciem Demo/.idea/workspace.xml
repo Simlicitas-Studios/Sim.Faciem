@@ -5,21 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ede8152-8bbf-4780-bf60-c8dae936943d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/AnimatioWindow.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/AnimatioWindow.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/KeyFrameDragDropManipulator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/KeyFrameDragDropManipulator.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineViewModel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/IAnimatioTimelineDataContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/IAnimatioTimelineDataContext.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/CurrentFrameDragManipulator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/CurrentFrameDragManipulator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemListConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemListConverter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemListPropertyDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineItemListPropertyDrawer.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Sim.Faciem Demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Sim.Faciem Demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/DI/EditorInjector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/DI/EditorInjector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/Editor/FaciemEditorWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/MonoScriptField.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Faciem/InternalEditor/MonoScriptField.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sim.Faciem Demo.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Sim.Faciem Demo.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/AnimatioWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/AnimatioWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/KeyFrameDragDropManipulator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/KeyFrameDragDropManipulator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlSyles.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlSyles.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlView.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlView.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineView.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineView.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/AnimatioTimelineViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/IAnimatioTimelineDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Editor/TimelineView/IAnimatioTimelineDataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Sample/SampleAnimation.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sim.Animatio/Sample/SampleAnimation.anim" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +58,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/32/b6b4ca83/ConverterGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/4b/8f9a247a/BaseListView.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/4c/ae7bfb5f/TextElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/51/9d3cc890/TwoPaneSplitView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/52/135b946b/VisualElement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/6f/3ae2470e/BaseVerticalCollectionView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e8410f52f0b4772a9d6bc7b2c0bb7351fa800/6f/6d1e1c8b/CallbackEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -88,6 +94,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7878115525854df7993c2f050b5b11541fa200/94/96797c93/EventCallbackFunctor`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7878115525854df7993c2f050b5b11541fa200/9b/a289bf97/Clickable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7878115525854df7993c2f050b5b11541fa200/ff/ed5dfc26/LayoutDataStore.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ae67de414c34a0397e0ee5801c5da5a10fc00/be/75aded96/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/9b/cd7a34b3/MonoScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/b7/87c4dd28/DragAndDrop.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/878b6c863a9e4c42bf8483a7b6c60e0b9b8800/e6/52ba6cd2/ObjectField.cs" root0="FORCE_HIGHLIGHTING" />
@@ -168,10 +175,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15864">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="24204">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="15864" />
+      <option name="pid" value="24204" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -201,6 +208,7 @@
       <workItem from="1742135793493" duration="18318000" />
       <workItem from="1742756779193" duration="8693000" />
       <workItem from="1744557963630" duration="6295000" />
+      <workItem from="1744649932830" duration="9782000" />
     </task>
     <servers />
   </component>

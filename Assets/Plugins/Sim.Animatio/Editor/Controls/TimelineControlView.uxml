@@ -1,12 +1,15 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlSyles.uss?fileID=7433441132597879392&amp;guid=5349cef8758c89345806e65e7f950c38&amp;type=3#TimelineControlSyles" />
     <engine:VisualElement name="TimelineControlRoot" style="flex-grow: 1; border-left-color: rgba(0, 0, 0, 0.47); border-right-color: rgba(0, 0, 0, 0.47); border-top-color: rgba(0, 0, 0, 0.47); border-bottom-color: rgba(0, 0, 0, 0.47); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;">
-        <engine:ScrollView mode="VerticalAndHorizontal" vertical-scroller-visibility="Hidden" name="RootScrollView" style="flex-grow: 1; padding-right: 10px;">
-            <engine:VisualElement name="KeyFrameTimeLine" class="time-ticks" style="height: 20px; background-color: rgb(36, 36, 36); align-items: flex-end; padding-left: 16px; padding-right: 16px; justify-content: flex-start; flex-shrink: 0;" />
-            <engine:VisualElement name="AnimationEventContainer" style="height: 20px; background-color: rgb(63, 63, 63);" />
-            <engine:VisualElement name="GlobalKeyFrameContainer" style="height: 20px; background-color: rgb(48, 48, 48);" />
-            <engine:ScrollView name="KeyFrameContainer" mode="VerticalAndHorizontal" horizontal-scroller-visibility="Hidden" nested-interaction-kind="StopScrolling" class="keyframecontainer" style="flex-grow: 1;" />
-            <engine:VisualElement name="SelectionIndicator" style="position: absolute; height: 100%; width: 1px; background-color: rgb(255, 255, 255); left: 50px;" />
-        </engine:ScrollView>
+        <engine:TwoPaneSplitView orientation="Horizontal" focusable="true" fixed-pane-initial-dimension="300">
+            <engine:VisualElement style="flex-grow: 1; min-width: 200px;" />
+            <engine:ScrollView mode="VerticalAndHorizontal" vertical-scroller-visibility="Hidden" name="RootScrollView" style="flex-grow: 1; padding-right: 10px;">
+                <engine:VisualElement name="KeyFrameTimeLine" class="time-ticks" style="height: 20px; background-color: rgb(36, 36, 36); align-items: flex-end; padding-left: 16px; padding-right: 16px; justify-content: flex-start; flex-shrink: 0;" />
+                <engine:VisualElement name="AnimationEventContainer" style="height: 20px; background-color: rgb(63, 63, 63);" />
+                <engine:VisualElement name="GlobalKeyFrameContainer" style="height: 20px; background-color: rgb(48, 48, 48);" />
+                <engine:ScrollView name="KeyFrameContainer" mode="VerticalAndHorizontal" horizontal-scroller-visibility="Hidden" nested-interaction-kind="StopScrolling" class="keyframecontainer" style="flex-grow: 1; height: 100%;" />
+                <engine:VisualElement name="SelectionIndicator" style="position: absolute; height: 100%; width: 1px; background-color: rgb(255, 255, 255); left: 50px;" />
+            </engine:ScrollView>
+        </engine:TwoPaneSplitView>
     </engine:VisualElement>
 </engine:UXML>

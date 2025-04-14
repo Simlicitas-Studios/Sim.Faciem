@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Plugins.Sim.Animatio.Editor
+namespace Sim.Animatio.Editor
 {
     public class AnimatioWindow : FaciemEditorWindow
     {

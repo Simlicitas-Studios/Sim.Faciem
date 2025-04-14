@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Plugins.Sim.Faciem.Shared;
 using R3;
+using Sim.Animatio.Editor.Controls;
+using Unity.Properties;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,15 +15,28 @@ namespace Sim.Animatio
     [UxmlElement]
     public partial class TimelineControl : VisualElement
     {
-        private VisualElement _selectionIndicator;
-        private ScrollView _rootScrollView;
-
-        private const int TickCount = 100;  // Number of ticks to display
-
-        private const int ValueRows = 10;
+        private readonly VisualElement _root;
+        private readonly VisualElement _selectionIndicator;
+        private readonly ScrollView _rootScrollView;
+        private DisposableBagHolder _disposables;
+        private DisposableBag _keyframeDisplayDisposables;
 
         private List<VisualElement> _selectedKeyFrames = new();
-        
+        private TimelineItemData _data;
+        private ScrollView _keyFrameContainer;
+        private VisualElement _ticksContainer;
+
+        [CreateProperty, UxmlAttribute]
+        public TimelineItemData Items
+        {
+            get => _data;
+            set
+            {
+                _data = value;
+                UpdateKeyframeDisplay();
+            }
+        }
+
         public TimelineControl()
         {
             // Load UXML and USS
@@ -31,29 +47,47 @@ namespace Sim.Animatio
                 AssetDatabase.LoadAssetAtPath<StyleSheet>(
                     "Assets/Plugins/Sim.Animatio/Editor/Controls/TimelineControlSyles.uss");
 
-            var root = visualTree.CloneTree();
-            root.styleSheets.Add(styleSheet);
-            root.style.flexGrow = 1;
-            Add(root);
+            _root = visualTree.CloneTree();
+            _root.styleSheets.Add(styleSheet);
+            _root.style.flexGrow = 1;
+            Add(_root);
 
-            var disposables = root.RegisterDisposableBag();
+            _disposables = _root.RegisterDisposableBag();
+            _disposables.Add(_root.ObserveEvent<PointerDownEvent>()
+                .Subscribe(_ => ResetCurrentKeyFrameSelection()));
             
-            _selectionIndicator = root.Q<VisualElement>("SelectionIndicator");
+            _selectionIndicator = _root.Q<VisualElement>("SelectionIndicator");
+            _rootScrollView = _root.Q<ScrollView>("RootScrollView");
             
-            var ticksContainer = root.Q<VisualElement>("KeyFrameTimeLine");
+            _ticksContainer = _root.Q<VisualElement>("KeyFrameTimeLine");
+            
+            var currentFrameDragManipulator = new CurrentFrameDragManipulator();
+            _ticksContainer.AddManipulator(currentFrameDragManipulator);
+            _disposables.Add(currentFrameDragManipulator
+                .MovedToFrame
+                .Subscribe(MoveSelection));
+            
+            // Single item test
+            _keyFrameContainer = _root.Q<ScrollView>("KeyFrameContainer");
+            _keyFrameContainer.contentContainer.AddManipulator(new KeyFrameDragDropManipulator(_selectedKeyFrames));
+            var verticalScroller = _keyFrameContainer.verticalScroller;
+            verticalScroller.AddToClassList("tick-vertical-scroller");
+            _rootScrollView.contentViewport.Add(verticalScroller);
+        }
 
-            for (var i = 0; i < TickCount; i++)
+        private void UpdateKeyframeDisplay()
+        {
+            _keyframeDisplayDisposables.Dispose();
+            _keyframeDisplayDisposables = new DisposableBag();
+            
+            VisualElement firstFrameTick = null;
+            _ticksContainer.Clear();
+            
+            for (var i = 0; i < _data.TotalFrames; i++)
             {
                 var tick = new VisualElement();
-
-                disposables.Add(
-                    tick
-                        .ObserveEvent<PointerDownEvent>()
-                        .AsUnitObservable()
-                        .Merge(tick.ObserveEvent<PointerMoveEvent>()
-                            .Where(_ => Mouse.current?.leftButton.isPressed ?? false)
-                            .AsUnitObservable())
-                        .Subscribe(_ => MoveSelection(tick)));
+                firstFrameTick ??= tick;
+                tick.AddToClassList("tick-header");
                 
                 if (i % 5 == 0)
                 {
@@ -67,24 +101,30 @@ namespace Sim.Animatio
                     tick.AddToClassList("tick-header-small"); 
                 }
 
-                ticksContainer.Add(tick);
+                _ticksContainer.Add(tick);
             }
+
+            schedule.Execute(() => MoveSelection(firstFrameTick))
+                .ExecuteLater(100);
             
-            _rootScrollView = root.Q<ScrollView>("RootScrollView");
+            _keyFrameContainer.contentContainer.Clear();
             
-            // Single item test
-            var keyFrameContainer = root.Q<ScrollView>("KeyFrameContainer");
-            var verticalScroller = keyFrameContainer.verticalScroller;
-            verticalScroller.AddToClassList("tick-vertical-scroller");
-            _rootScrollView.contentViewport.Add(verticalScroller);
-            
-            for (var x = 0; x < ValueRows; x++)
+            for (var x = 0; x < _data.Items.Count; x++)
             {
-                var valueRow = new VisualElement();
-                valueRow.AddToClassList("tick-value-row");
-                for (var i = 0; i < TickCount; i++)
+                var valueRow = new VisualElement
                 {
-                    var tickValueContainer = new VisualElement();
+                    name = "keyframe-row-" + x
+                };
+                valueRow.AddToClassList("tick-value-row");
+                
+                var item = _data.Items[x];
+                
+                for (var i = 0; i < _data.TotalFrames; i++)
+                {
+                    var tickValueContainer = new VisualElement
+                    {
+                        name = $"tick-value-container_{i}",
+                    };
                     tickValueContainer.AddToClassList("tick-value-container");
                     var keyFrame = new VisualElement
                     {
@@ -92,35 +132,31 @@ namespace Sim.Animatio
                     };
                     keyFrame.AddToClassList("tick-value");
 
-                    if (i % 5 == 0)
+                    if (item.KeyFrames.Contains(i))
                     {
                         keyFrame.AddToClassList("tick-value-keyframe");
                     }
 
-                    disposables.Add(
+                    _disposables.Add(
                         keyFrame.ObserveEvent<PointerDownEvent>()
                             .Subscribe(evt =>
                             {
-                                if (!evt.ctrlKey)
+                                if (!evt.ctrlKey && !_selectedKeyFrames.Contains(keyFrame))
                                 {
                                     ResetCurrentKeyFrameSelection();
                                 }
 
                                 SetKeyFrameSelection(keyFrame, true);
                                 _selectedKeyFrames.Add(keyFrame);
-
                             }));
-
-                    _ = new KeyFrameDragDropManipulator(valueRow, keyFrame);
                     
                     tickValueContainer.Add(keyFrame);
                     valueRow.Add(tickValueContainer);
                 }
-                keyFrameContainer.contentContainer.Add(valueRow);
+                _keyFrameContainer.contentContainer.Add(valueRow);
             }
-
         }
-
+        
         private void ResetCurrentKeyFrameSelection()
         {
             foreach (var keyFrame in _selectedKeyFrames)
