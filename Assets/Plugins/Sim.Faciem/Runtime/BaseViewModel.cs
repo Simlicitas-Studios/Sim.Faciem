@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
 using R3;
 using Sim.Faciem.Commands;
-using Sim.Faciem.Internal;
-using UnityEngine.UIElements;
 
 namespace Sim.Faciem
 {
     public abstract class BaseViewModel : IDisposable, IDisposableContainer, IRegionSetup
     {
-        
-        internal bool IsSetup { get; set; }
+
+        internal bool IsSetup => RegionManager != null && Navigation != null;
 
         protected DisposableBag Disposables { get; } = new();
 
@@ -31,12 +28,14 @@ namespace Sim.Faciem
         {
             RegionManager = regionManager;
             Navigation = new ViewModelNavigationService(this, navigationService);
-            
-            IsSetup = true;
         }
 
         public void AddRegion(IRegion region)
         {
+            Disposables.Add(region
+                .Destroyed
+                .Take(1)
+                .Subscribe(_ => RegionManager.RemoveRegion(region)));
             RegionManager.AddRegion(region);
         }
 

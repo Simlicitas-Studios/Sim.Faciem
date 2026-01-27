@@ -18,6 +18,11 @@ namespace Sim.Faciem.Commands
             return new CommandBuilder(action, _container);
         }
 
+        public CommandBuilder<T> Execute<T>(Action<T> action)
+        {
+            return new CommandBuilder<T>(action, _container);
+        }
+
         public AsyncCommandBuilder ExecuteAsync(Func<CancellationToken, UniTask> action)
         {
             return new AsyncCommandBuilder(action, _container);

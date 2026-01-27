@@ -1,0 +1,18 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement data-source-type="Sim.Faciem.uGUI.Editor.BindingWindow.BindingWindowViewModel, Sim.Faciem.uGUI.Editor" style="flex-grow: 1; width: 300px; height: 300px;">
+        <uie:ObjectField label="Data Source" type="UnityEditor.MonoScript, UnityEditor.CoreModule" allow-scene-objects="true" name="ofDataSource">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="DataSource" binding-mode="TwoWay" />
+            </Bindings>
+        </uie:ObjectField>
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row; margin-top: 1px; margin-right: 3px; margin-bottom: 1px; margin-left: 3px;">
+            <ui:Label text="Property Path" style="flex-grow: 0; min-width: 120px; -unity-text-align: middle-left;" />
+            <Sim.Faciem.uGUI.Editor.Controls.PropertyPathField style="flex-grow: 1;">
+                <Bindings>
+                    <ui:DataBinding property="DataSourceType" data-source-path="DataSourceType" binding-mode="ToTarget" />
+                    <ui:DataBinding property="Value" data-source-path="PropertyPath" binding-mode="TwoWay" />
+                </Bindings>
+            </Sim.Faciem.uGUI.Editor.Controls.PropertyPathField>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+{
+    "name": "Sim.Faciem.uGUI.Editor",
+    "rootNamespace": "Sim.Faciem.uGUI.Editor",
+    "references": [
+        "GUID:3d6698a08ce1c52478ba9fb569037ec3",
+        "GUID:a07876359cfdf6049a3eeb95261265b2",
+        "GUID:0256ac6985bf6624da798665f1d64436",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

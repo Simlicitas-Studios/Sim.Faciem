@@ -1,9 +1,13 @@
 ﻿using Sim.Faciem.ListBinding;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine.UIElements;
 
 namespace Plugins.Sim.Faciem.InternalEditor.Controls
 {
+
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(SerializedListReference))]
     public class SerializedListReferencePropertyDrawer : PropertyDrawer
     {
@@ -12,4 +16,5 @@ namespace Plugins.Sim.Faciem.InternalEditor.Controls
             return new Label("Item Source Binding");
         }
     }
+#endif
 }

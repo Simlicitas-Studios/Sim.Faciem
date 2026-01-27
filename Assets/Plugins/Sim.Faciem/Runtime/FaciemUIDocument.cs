@@ -26,6 +26,13 @@ namespace Sim.Faciem
 
             var vm = constructionService.CreateInstance<ShellViewModel>();
             document.rootVisualElement.dataSource = vm;
+            
+            var regions = document.rootVisualElement.Query<Region>().ToList();
+
+            foreach (var innerRegion in regions)
+            {
+                innerRegion.RegisterDirect(vm);
+            }
 
             await UniTask.Delay(TimeSpan.FromMilliseconds(100));
             await vm.NavigateToInternal();

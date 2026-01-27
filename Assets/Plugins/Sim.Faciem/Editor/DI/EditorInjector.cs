@@ -21,20 +21,37 @@ namespace Plugins.Sim.Faciem.Editor.DI
             editor.Register<IDIContainerBridge, EditorInjector>();
             Instance = editor;
             
+            AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+            
             AutoRegisterEditorInstallers();
             AutoRegisterEditorViewIds(editor);
+            
+            InstantiateNonLazyServices();
+        }
+        
+        private static void OnBeforeAssemblyReload()
+        {
+            foreach (IDisposable disposableService in s_instances.Values.OfType<IDisposable>())
+            {
+                disposableService.Dispose();
+            }
         }
 
-        private void RegisterInstance<TInterface, TImplementation>(TImplementation instance)
+        public void RegisterInstance<TInterface, TImplementation>(TImplementation instance)
             where TImplementation : TInterface
         {
             Register<TInterface, TImplementation>();
             s_instances.Add(typeof(TInterface), instance);
         }
-        
-        public void Register<TInterface, TImplementation>() where TImplementation : TInterface
+
+        public void Register<TInterface, TImplementation>(bool nonLazy = false, params Type[] aliases) where TImplementation : TInterface
         {
-            s_registeredTypes[typeof(TInterface)] = ServiceRegistration.Singleton(typeof(TImplementation));
+            var serviceRegistration = ServiceRegistration.Singleton(typeof(TImplementation), nonLazy);
+            s_registeredTypes[typeof(TInterface)] = serviceRegistration;
+            foreach (Type alias in aliases ?? Array.Empty<Type>())
+            {
+                s_registeredTypes[alias] = serviceRegistration;
+            }
         }
 
         private void RegisterTransient(Type tInterface, Type tImplementation)
@@ -43,6 +60,7 @@ namespace Plugins.Sim.Faciem.Editor.DI
         }
 
         // ResolveVersion with generic
+
         public TInterface ResolveInstance<TInterface>() where TInterface : class
         {
             var interfaceType = typeof(TInterface);
@@ -57,11 +75,16 @@ namespace Plugins.Sim.Faciem.Editor.DI
             {
                 return existingInstance;
             }
-
+            
             // Check if the type has been registered
             if (!s_registeredTypes.TryGetValue(interfaceType, out var implementationType))
             {
                 throw new InvalidOperationException($"No registration for type {interfaceType.FullName}");
+            }
+            
+            if (s_instances.TryGetValue(implementationType.InstanceType, out existingInstance))
+            {
+                return existingInstance;
             }
 
             // Create an instance using the constructor with the most parameters (dependency injection)
@@ -78,11 +101,13 @@ namespace Plugins.Sim.Faciem.Editor.DI
 
             // Cache the singleton instance
             s_instances[interfaceType] = instance;
+            s_instances[implementationType.InstanceType] = instance;
 
             return instance;
         }
 
         // Internal resolve method for non-generic calls
+
         private static object Resolve(Type interfaceType)
         {
             // Check if a singleton instance already exists
@@ -90,11 +115,17 @@ namespace Plugins.Sim.Faciem.Editor.DI
             {
                 return existingInstance;
             }
+            
 
             // Check if the type has been registered
             if (!s_registeredTypes.TryGetValue(interfaceType, out var implementationType))
             {
                 throw new InvalidOperationException($"No registration for type {interfaceType.FullName}");
+            }
+            
+            if (s_instances.TryGetValue(implementationType.InstanceType, out existingInstance))
+            {
+                return existingInstance;
             }
 
             // Create an instance using the constructor with the most parameters
@@ -111,6 +142,7 @@ namespace Plugins.Sim.Faciem.Editor.DI
 
             // Cache the singleton instance
             s_instances[interfaceType] = instance;
+            s_instances[implementationType.InstanceType] = instance;
 
             return instance;
         }
@@ -137,14 +169,24 @@ namespace Plugins.Sim.Faciem.Editor.DI
 
             foreach (var viewId in viewIdAssets)
             {
-                if (viewId.DataContext == null || viewId.ViewModel == null
-                    || viewId.DataContext.Script == null || viewId.ViewModel.Script == null
-                    || viewId.View == null)
+                if (viewId.DataContext == null || viewId.ViewModel == null)
                 {
                     continue;
                 }
                 
                 injector.RegisterTransient(viewId.DataContext.Script.GetClass(), viewId.ViewModel.Script.GetClass());
+            }
+        }
+
+        private static void InstantiateNonLazyServices()
+        {
+            var nonLazyRegistrations = s_registeredTypes
+                .Select(pair => pair)
+                .Where(pair => pair.Value.NonLazy);
+            
+            foreach (var pair in nonLazyRegistrations)
+            {
+                Instance.ResolveInstance(pair.Key);
             }
         }
     }

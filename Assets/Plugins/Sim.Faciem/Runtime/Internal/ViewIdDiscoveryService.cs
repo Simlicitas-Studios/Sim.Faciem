@@ -2,6 +2,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Plugins.Sim.Faciem.Editor;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Sim.Faciem.Internal
@@ -9,25 +10,27 @@ namespace Sim.Faciem.Internal
     public static class ViewIdDiscoveryService
     {
         public static Dictionary<ViewId, ViewIdAsset> ViewIds { get; } = new();
-        
+
         // TODO: Carefully - this is a blocking call as not all frameworks supports async registration
         public static void RegisterViewIds(IDIRegistrationBridge registrationBridge)
         {
+            ViewIds.Clear();
             var label = new AssetLabelReference { labelString = FaciemAddressables.ViewId };
             var viewIds = Addressables
-                .LoadAssetsAsync<ViewIdAsset>(new[] { label }, _ => { }, Addressables.MergeMode.Intersection)
+                .LoadAssetsAsync<ViewIdAsset>(new [] { FaciemAddressables.ViewId  }, _ => { }, Addressables.MergeMode.Intersection)
                 .WaitForCompletion();
 
             if (viewIds == null)
             {
                 return;
             }
-            
+
             RegisterViewIdsInternal(registrationBridge, viewIds.ToList());
         }
 
         public static async UniTask RegisterViewIdsAsync(IDIRegistrationBridge registrationBridge)
         {
+            ViewIds.Clear();
             var label = new AssetLabelReference { labelString = FaciemAddressables.ViewId };
             var viewIds = await Addressables
                 .LoadAssetsAsync<ViewIdAsset>(new[] { label }, _ => { }, Addressables.MergeMode.Intersection)
@@ -37,7 +40,7 @@ namespace Sim.Faciem.Internal
             {
                 return;
             }
-            
+
             RegisterViewIdsInternal(registrationBridge, viewIds.ToList());
         }
 
@@ -46,10 +49,12 @@ namespace Sim.Faciem.Internal
             foreach (var viewIdAsset in viewIds)
             {
                 ViewIds.Add(viewIdAsset.ViewId, viewIdAsset);
-                
+
+                var dataContextType = viewIdAsset.DataContext.GetReferencedType();
+                var viewModelType = viewIdAsset.ViewModel.GetReferencedType();
                 registrationBridge.RegisterTransient(
-                    viewIdAsset.DataContext.Script.GetClass(),
-                    viewIdAsset.ViewModel.Script.GetClass());
+                    dataContextType,
+                    viewModelType);   
             }
         }
     }

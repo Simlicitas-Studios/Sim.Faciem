@@ -1,7 +1,10 @@
-﻿using UnityEditor.UIElements;
+﻿#if UNITY_EDITOR
+using UnityEditor.UIElements;
+#endif
 
 namespace Sim.Faciem.CommandBinding
 {
+#if UNITY_EDITOR
     public class SerializedCommandConverter : UxmlAttributeConverter<SerializedCommand>
     {
         public override SerializedCommand FromString(string value)
@@ -12,4 +15,5 @@ namespace Sim.Faciem.CommandBinding
             };
         }
     }
+#endif
 }

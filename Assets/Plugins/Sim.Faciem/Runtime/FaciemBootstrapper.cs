@@ -5,10 +5,13 @@ namespace Sim.Faciem
 {
     public static class FaciemBootstrapper
     {
-        public static void RegisterServices(IDIRegistrationBridge registrationBridge)
+        public static void RegisterServices(IDIRegistrationBridge registrationBridge, bool registerViewIds = true)
         {
             RegisterServicesInternal(registrationBridge);
-            ViewIdDiscoveryService.RegisterViewIds(registrationBridge);
+            if (registerViewIds)
+            {
+                ViewIdDiscoveryService.RegisterViewIds(registrationBridge);   
+            }
         }
 
         public static async UniTask RegisterServicesAsync(IDIRegistrationBridge registrationBridge)

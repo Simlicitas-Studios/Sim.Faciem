@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Bebop.Monads;
+using R3;
 using UnityEngine.UIElements;
+using Unit = R3.Unit;
 
 namespace Sim.Faciem
 {
@@ -11,6 +13,8 @@ namespace Sim.Faciem
         RegionName RegionName { get; }
         
         IReadOnlyList<ViewId> ActiveViews { get; }
+        
+        Observable<Unit> Destroyed { get; }
 
         void AddView(ViewId viewId, VisualElement view);
         

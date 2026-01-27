@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bebop.Monads;
 using Plugins.Sim.Faciem.Shared;
 using R3;
-using Sim.Faciem.Internal;
 using UnityEngine.UIElements;
+using Unit = R3.Unit;
 
 namespace Sim.Faciem
 {
@@ -13,7 +14,6 @@ namespace Sim.Faciem
         private readonly Maybe<RegionName> _regionName;
         private readonly Dictionary<ViewId, VisualElement> _views;
         private readonly List<ViewId> _currentActiveViews;
-        private bool _isDetached;
 
         [UxmlAttribute] 
         public RegionNameDefinition RegionName { get; set; }
@@ -22,6 +22,8 @@ namespace Sim.Faciem
         public bool SupportMultipleViews { get; set; }
         
         public IReadOnlyList<ViewId> ActiveViews => _currentActiveViews;
+        
+        public Observable<Unit> Destroyed { get; }
         
         public Region(RegionName regionName)
             : this()
@@ -33,6 +35,8 @@ namespace Sim.Faciem
         {
             _currentActiveViews = new List<ViewId>();
             _views = new Dictionary<ViewId, VisualElement>();
+            Destroyed = this.ObserveEvent<DetachFromPanelEvent>()
+                .AsUnitObservable();
         }
 
         public bool TryGetView(ViewId viewId, out VisualElement view)
@@ -48,7 +52,7 @@ namespace Sim.Faciem
                 return;
             }
             
-            throw new System.InvalidOperationException("View already added");
+            throw new InvalidOperationException("View already added");
         }
 
         public void ActivateView(ViewId viewId)

@@ -17,5 +17,10 @@ namespace Sim.Faciem
         {
             return _navigationService.NavigateTo(_baseViewModel.RegionManager, viewId, region);
         }
+
+        public UniTask Clear(RegionName regionName)
+        {
+            return _navigationService.Clear(_baseViewModel.RegionManager, regionName);
+        }
     }
 }

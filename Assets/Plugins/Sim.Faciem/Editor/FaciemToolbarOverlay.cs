@@ -4,10 +4,7 @@ using Plugins.Sim.Faciem.Editor.Navigation;
 using Plugins.Sim.Faciem.Shared;
 using R3;
 using Sim.Faciem;
-using UnityEditor;
 using UnityEditor.Overlays;
-using UnityEditor.Toolbars;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
 namespace Plugins.Sim.Faciem.Editor
@@ -20,8 +17,9 @@ namespace Plugins.Sim.Faciem.Editor
 
         protected IEditorToolNavigationService Navigation { get; }
 
-        protected abstract RegionName RegionName { get; }
+        protected abstract RegionName PanelRegionName { get; }
         
+        protected abstract RegionName ToolbarRegionName { get; }
         
         protected FaciemToolbarOverlay()
         {
@@ -38,17 +36,17 @@ namespace Plugins.Sim.Faciem.Editor
         public sealed override VisualElement CreatePanelContent()
         {
             var root = CreateRootElement();
-            var region = new Region(RegionName);
+            var region = new Region(PanelRegionName);
 
             var disposables = region.RegisterDisposableBag();
             _regionManager.AddRegion(region);
             disposables.Add(Disposable.Create(() =>
             {
-                _regionManager.RemoveRegion(RegionName);
-                UniTask.Defer(NavigateAway).Forget();
+                _regionManager.RemoveRegion(region);
+                UniTask.Defer(NavigateAwayPanel).Forget();
             }));            
             
-            UniTask.Defer(NavigateTo).Forget();
+            UniTask.Defer(NavigateToPanel).Forget();
 
             root.Add(region);
             return root;
@@ -56,25 +54,25 @@ namespace Plugins.Sim.Faciem.Editor
 
         public override void OnCreated()
         {
-            var button = new ToolbarButton(TogglePanel)
-            {
-                text = "Toggle Panel"
-            };
-            button.name = "toggle-panel-button";
-            rootVisualElement.Add(button);
-        }
-
-        private void TogglePanel()
-        {
-            collapsed = !collapsed;
+            collapsed = false;
+            var region = new Region(ToolbarRegionName);
+            _regionManager.AddRegion(region);
+            rootVisualElement[0].Add(region);
+            
+            UniTask.Defer(NavigateToToolbar).Forget();
         }
         
-        protected virtual UniTask NavigateTo()
+        protected virtual UniTask NavigateToToolbar()
+        {
+            return UniTask.CompletedTask;
+        }
+        
+        protected virtual UniTask NavigateToPanel()
         {
             return UniTask.CompletedTask;
         }
 
-        protected virtual UniTask NavigateAway()
+        protected virtual UniTask NavigateAwayPanel()
         {
             return UniTask.CompletedTask;
         }

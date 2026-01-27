@@ -52,10 +52,10 @@ namespace Plugins.Sim.Faciem.Editor
             }
             else
             {
-                index = text.IndexOf(RegionNameCodeGenerationStart, StringComparison.Ordinal) + 1;
+                index = text.IndexOf(RegionNameCodeGenerationStart, StringComparison.Ordinal);
                 if (index != -1)
                 {
-                    index += RegionNameCodeGenerationStart.Length;
+                    index += RegionNameCodeGenerationStart.Length + 1;
                 }
             }
 

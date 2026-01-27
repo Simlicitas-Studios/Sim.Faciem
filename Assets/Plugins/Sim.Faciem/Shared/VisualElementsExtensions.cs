@@ -1,6 +1,8 @@
 ﻿using System;
 using R3;
+#if UNITY_EDITOR
 using UnityEditor.UIElements;
+#endif
 using UnityEngine.UIElements;
 
 namespace Plugins.Sim.Faciem.Shared
@@ -26,7 +28,7 @@ namespace Plugins.Sim.Faciem.Shared
         {
             visualElement.style.display = DisplayStyle.Flex;
         }
-        
+
         public static void Hide(this VisualElement visualElement)
         {
             visualElement.style.display = DisplayStyle.None;
@@ -41,11 +43,13 @@ namespace Plugins.Sim.Faciem.Shared
                 action => element.UnregisterCallback(action));
         }
 
+#if UNITY_EDITOR
         public static Observable<SerializedPropertyChangeEvent> ObservePropertyChanges(this PropertyField element)
         {
             return element.ObserveEvent<SerializedPropertyChangeEvent>();
         }
 
+#endif
         public static Observable<T> ObserveValueChanged<T>(this INotifyValueChanged<T> element)
         {
             return Observable.FromEvent<EventCallback<ChangeEvent<T>>, T>(

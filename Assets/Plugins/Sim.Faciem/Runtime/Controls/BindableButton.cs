@@ -26,9 +26,9 @@ namespace Sim.Faciem
         public BindableButton()
         {
             var lifeTimeDisposables = this.RegisterDisposableBag();
+            _commandSubscriptions = new DisposableBag();
             
-            lifeTimeDisposables.Add(
-                _commandSubscriptions);
+            lifeTimeDisposables.Add(_commandSubscriptions);
             
             lifeTimeDisposables.Add(Observable.FromEvent(
                 x => clickable.clicked += x,

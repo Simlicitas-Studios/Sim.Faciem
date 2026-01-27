@@ -1,0 +1,14 @@
+{
+  "name": "com.sim.faciem",
+  "version": "1.0.0-alpha.1",
+  "displayName": "Sim.Faciem",
+  "description": "Fork of the Simplicitas Sim.Faciem Repo.",
+ "keywords": [
+    "Unity",
+    "Simplicitas",
+	"Faciem"
+  ],
+  "author": {
+    "name": "pasdaa13"
+  }
+}

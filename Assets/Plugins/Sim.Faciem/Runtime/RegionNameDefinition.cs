@@ -13,19 +13,18 @@ namespace Sim.Faciem
 
         public bool SourceCodeGeneration;
 
-        public MonoScript SourceFile;
 
         public RegionName Name => RegionName.From(_name);
-        
-        #if UNITY_EDITOR
 
+#if UNITY_EDITOR
+        public MonoScript SourceFile;
         internal Action<RegionNameDefinition> ExecuteCodeGeneration { get; set; }
-        
+
         private void OnValidate()
         {
             ExecuteCodeGeneration?.Invoke(this);
         }
 
-        #endif
+#endif
     }
 }

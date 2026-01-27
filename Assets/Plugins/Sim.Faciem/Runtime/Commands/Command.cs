@@ -23,9 +23,9 @@ namespace Sim.Faciem.Commands
             
             CanExecuteObs = Observable.FromEvent<EventHandler, object>(
                     
-                x => (obj, args) => x(obj),
-                x => CanExecuteChanged += x,
-                x => CanExecuteChanged -= x)
+                    x => (obj, args) => x(obj),
+                    x => CanExecuteChanged += x,
+                    x => CanExecuteChanged -= x)
                 .OfType<object, Command>()
                 .Select(command => command.CanExecute())
                 .Prepend(CanExecute());

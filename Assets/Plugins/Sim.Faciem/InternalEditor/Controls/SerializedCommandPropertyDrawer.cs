@@ -1,10 +1,12 @@
 ﻿using Sim.Faciem.CommandBinding;
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditor.UIElements;
+#endif
 using UnityEngine.UIElements;
 
 namespace Plugins.Sim.Faciem.InternalEditor.Controls
 {
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(SerializedCommand))]
     public class SerializedCommandPropertyDrawer : PropertyDrawer
     {
@@ -13,4 +15,5 @@ namespace Plugins.Sim.Faciem.InternalEditor.Controls
             return new Label("Command Binding");
         }
     }
+#endif
 }

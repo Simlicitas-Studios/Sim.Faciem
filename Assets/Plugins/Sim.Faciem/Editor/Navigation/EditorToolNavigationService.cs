@@ -18,5 +18,10 @@ namespace Plugins.Sim.Faciem.Editor.Navigation
         {
             return _navigationService.NavigateTo(_editorWindow.RegionManager, viewId, region);
         }
+
+        public UniTask Clear(RegionName region)
+        {
+            return _navigationService.Clear(_editorWindow.RegionManager, region);
+        }
     }
 }

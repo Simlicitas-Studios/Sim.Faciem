@@ -23,6 +23,7 @@ namespace Plugins.Sim.Faciem.Editor
                 {
                     flexGrow = 1,
                     alignItems = Align.Stretch,
+                    paddingLeft = 3
                 }
             };
             
@@ -39,7 +40,8 @@ namespace Plugins.Sim.Faciem.Editor
 
             var disposables = root.RegisterDisposableBag();
             
-            var viewModelProperty = property.FindPropertyRelative(nameof(MonoScriptReference.Script));
+            var typeNameProperty = property.FindPropertyRelative(nameof(MonoScriptReference.TypeName));
+            var scriptProperty = property.FindPropertyRelative(nameof(MonoScriptReference.Script));
 
             var label = new Label(property.displayName)
             {
@@ -67,7 +69,20 @@ namespace Plugins.Sim.Faciem.Editor
                     width = Length.Percent(60)
                 }
             };
-            objectField.BindProperty(viewModelProperty);
+            objectField.BindProperty(scriptProperty);
+            var scriptName = new Label
+            {
+                style =
+                {
+                    left = Length.Percent(40),
+                    width = Length.Percent(58),
+                    marginTop = 4,
+                    marginBottom = 4,
+                    textOverflow = TextOverflow.Ellipsis,
+                    overflow = Overflow.Hidden
+                },
+            };
+            scriptName.BindProperty(typeNameProperty);
             
             var validationLabel = new Label
             {
@@ -81,68 +96,71 @@ namespace Plugins.Sim.Faciem.Editor
                 enableRichText = true
             };
 
-                disposables.Add(
-                    objectField.ObserveValueChanged()
-                        .CombineLatest(Observable.Interval(TimeSpan.FromSeconds(1), UnityTimeProvider.UpdateIgnoreTimeScale).Prepend(Unit.Default), (obj, _ ) => obj)
-                        .OfType<Object, MonoScript>()
-                        .Subscribe(newValue =>
+            disposables.Add(
+                objectField.ObserveValueChanged()
+                    .CombineLatest(Observable.Interval(TimeSpan.FromSeconds(1), UnityTimeProvider.UpdateIgnoreTimeScale)
+                        .AsUnitObservable()
+                        .Prepend(Unit.Default), (obj, _ ) => obj)
+                    .OfType<Object, MonoScript>()
+                    .Subscribe(newValue =>
+                    {
+                        var dependentTypes = dynamicFilters
+                            .Select(dependentProperty => dependentProperty.objectReferenceValue)
+                            .OfType<MonoScript>()
+                            .Select(monoScript => monoScript.GetClass())
+                            .Where(type => type != null)
+                            .ToList();
+                        
+                        
+                        if (typeFilters.Count > 0 || dependentTypes.Count > 0)
                         {
-                            var dependentTypes = dynamicFilters
-                                .Select(dependentProperty => dependentProperty.objectReferenceValue)
-                                .OfType<MonoScript>()
-                                .Select(monoScript => monoScript.GetClass())
-                                .Where(type => type != null)
+                            var type = newValue.GetClass(); 
+                            
+                            var missingTypes = typeFilters
+                                .Select(typeFilter => typeFilter.TargetType)
+                                .Concat(dependentTypes)
+                                .Where(filterType => !IsAssignable(filterType, type))
                                 .ToList();
-                            
-                            
-                            if (typeFilters.Count > 0 || dependentTypes.Count > 0)
+
+                            if (missingTypes.Any())
                             {
-                                var type = newValue.GetClass(); 
-                                
-                                var missingTypes = typeFilters
-                                    .Select(typeFilter => typeFilter.TargetType)
-                                    .Concat(dependentTypes)
-                                    .Where(typeFilter => !IsAssignableTo(type, typeFilter))
-                                    .ToList();
-
-                                if (missingTypes.Any())
-                                {
-                                    validationLabel.text =
-                                        $"The passed type must inherit from the types:\n {string.Join("\n", missingTypes.Select(x => x.FullName))}";
-                                }
-                                else
-                                {
-                                    validationLabel.text = string.Empty;
-                                }
-
+                                validationLabel.text =
+                                    $"The passed type must inherit from the types:\n {string.Join("\n", missingTypes.Select(x => x.FullName))}";
+                            }
+                            else
+                            {
+                                validationLabel.text = string.Empty;
                             }
 
-                            root.panel.visualTree.MarkDirtyRepaint();
-                        }));
+                        }
+
+                        root.panel.visualTree.MarkDirtyRepaint();
+                    }));
             
             valuePart.Add(objectField);
             root.Add(valuePart);
+            root.Add(scriptName);
             root.Add(validationLabel);
 
             return root;
         }
 
-        private bool IsAssignableTo(Type type, Type filterType)
+        private bool IsAssignable(Type filterType, Type type)
         {
             if (filterType.IsGenericType)
             {
-                var targetType = type;
-
-                do
+                var derivedType = type;
+                while (derivedType != null && derivedType != typeof(object))
                 {
-                    if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == filterType)
+                    if (derivedType.IsGenericType && derivedType.GetGenericTypeDefinition() == filterType)
                     {
                         return true;
                     }
-                    targetType = targetType.BaseType;
-                } while (targetType != null && targetType != typeof(object));
+                    derivedType = derivedType.BaseType;
+                }
+                return false;
             }
-            
+
             return filterType.IsAssignableFrom(type);
         }
     }

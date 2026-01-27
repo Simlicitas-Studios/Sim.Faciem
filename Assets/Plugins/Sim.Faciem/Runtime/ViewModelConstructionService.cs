@@ -28,14 +28,17 @@ namespace Sim.Faciem
             EnsureNavigationServiceSet();
             
             var instance = _diContainerBridge.ResolveInstance(type);
-            var regionManager = new RegionManager();
 
             if (instance is not BaseViewModel baseViewModel)
             {
                 throw new Exception("Cannot create instance of type " + type.FullName);
             }
-            
-            baseViewModel.Setup(regionManager, _navigationService);
+
+            if (!baseViewModel.IsSetup)
+            {
+                var regionManager = new RegionManager();
+                baseViewModel.Setup(regionManager, _navigationService);   
+            }
 
             return baseViewModel;
         }
