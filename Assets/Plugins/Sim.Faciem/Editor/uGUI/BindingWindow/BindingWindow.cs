@@ -1,23 +1,24 @@
-﻿using Plugins.Sim.Faciem.Editor;
-using R3;
+﻿using Cysharp.Threading.Tasks;
+using Plugins.Sim.Faciem.Editor;
 using UnityEngine;
 
 namespace Sim.Faciem.uGUI.Editor.BindingWindow
 {
     public class BindingWindow : FaciemEditorWindow
     {
-        private Subject<Unit> _onDestorySubject = new();
-        
-        public Observable<Unit> Closed => _onDestorySubject;
-        
         public BindingWindow()
         {
             titleContent = new GUIContent("Binding Setup");
         }
 
-        private void OnDestroy()
+        protected override async UniTask NavigateTo()
         {
-            _onDestorySubject.OnNext(Unit.Default);
+            await Navigation.Navigate(WellKnownEditorViewIds.Sim_Faciem_uGUI_BindingWindow, WindowRegionName);
+        }
+
+        protected override async UniTask NavigateAway()
+        {
+            await Navigation.Clear(WindowRegionName);
         }
     }
 }

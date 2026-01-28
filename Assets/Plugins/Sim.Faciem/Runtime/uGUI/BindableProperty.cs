@@ -13,6 +13,8 @@ namespace Sim.Faciem.uGUI
         
         public T Value { get =>  _value; set => _value = value; }
 
+        Type IBindableProperty.BoundType => typeof(T);
+
         SimBindingInfo IBindableProperty.BindingInfo
         {
             get => BindingInfo;

@@ -88,9 +88,9 @@ namespace Sim.Faciem
             return visualElement.VisualElementEventAsObservable<ClickEvent>();
         }
 
-        public static Observable<FocusOutEvent> FocusInAsObservable(this VisualElement visualElement)
+        public static Observable<FocusInEvent> FocusInAsObservable(this VisualElement visualElement)
         {
-            return visualElement.VisualElementEventAsObservable<FocusOutEvent>();
+            return visualElement.VisualElementEventAsObservable<FocusInEvent>();
         }
 
         public static Observable<BlurEvent> BlurAsObservable(this VisualElement visualElement)

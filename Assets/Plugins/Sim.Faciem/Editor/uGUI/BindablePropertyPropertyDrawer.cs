@@ -18,28 +18,32 @@ namespace Sim.Faciem.uGUI.Editor
             {
                 label = property.displayName
             };
+
+            var bindingIcon = new VisualElement
+            {
+                style =
+                {
+                    backgroundImage = new StyleBackground(EditorGUIUtility.IconContent("Binding").image as Texture2D),
+                    position = Position.Absolute,
+                    left = -12,
+                    top = 2,
+                    width = 16,
+                    height = 16,
+                    unityBackgroundImageTintColor = new  Color(87/255f, 133/255f, 217/255f, 1),
+                    display = DisplayStyle.None
+                }
+            };
+            root.Add(bindingIcon);
+            
+            root.schedule.Execute(() => bindingIcon.style.display = property.boxedValue is IBindableProperty
+                {
+                    BindingInfo: { IsDefault: true }
+                }
+                    ? DisplayStyle.None
+                    : DisplayStyle.Flex)
+                .Every(200);
                 
             root.Add(valueField);
-
-            root.RegisterCallback<ContextClickEvent>(evt =>
-            {
-                var menu = new GenericMenu();
-                menu.AddItem(
-                    new GUIContent("Add Binding…"),
-                    false,
-                    () => AddBinding(property)
-                );
-
-                menu.AddItem(
-                    new GUIContent("Clear Binding"),
-                    false,
-                    () => ClearBinding(property)
-                );
-
-                menu.ShowAsContext();
-
-                evt.StopPropagation();
-            });
             
             return root;
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using R3;
 using UnityEditor.IMGUI.Controls;
 using Unity.Properties;
 using UnityEditor;
@@ -76,9 +78,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 var childPath = path.Append(property.Name);
                 var valueType = property.DeclaredValueType();
 
-                bool compatible =
-                    _expectedValueType == null ||
-                    _expectedValueType.IsAssignableFrom(valueType);
+                var compatible = CheckCompatibility(valueType);
 
                 var item = new PropertyPathTreeViewItem(
                     id++,
@@ -96,6 +96,29 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                     BuildProperties(item, ref id, valueType, childPath);
                 }
             }
+        }
+
+        private bool CheckCompatibility(Type valueType)
+        {
+            if (_expectedValueType == null)
+            {
+                return true;
+            }
+
+            if (_expectedValueType.IsAssignableFrom(valueType))
+            {
+                return true;
+            }
+            
+            if(valueType.IsGenericType && (valueType.GetGenericTypeDefinition() == typeof(Observable<>)
+               || valueType.GetGenericTypeDefinition() == typeof(ReactiveProperty<>)
+               || valueType.GetGenericTypeDefinition() == typeof(ReadOnlyReactiveProperty<>)))
+            {
+                var observableType = valueType.GetGenericArguments().First();
+                return _expectedValueType.IsAssignableFrom(observableType);
+            }
+
+            return false;
         }
 
         protected override void DoubleClickedItem(int id)

@@ -1,4 +1,6 @@
 ﻿using System;
+using Plugins.Sim.Faciem.Shared;
+using R3;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,18 +30,18 @@ namespace Sim.Faciem.uGUI.Editor.Controls
         [UxmlAttribute("referencedDataSource")]
         public string DataSourceType { get; set; }
 
-        /// <summary>
-        /// Optional: filter properties by compatible value type.
-        /// </summary>
-        public Type ExpectedValueType { get; set; }
+        [CreateProperty]
+        [UxmlAttribute]
+        public string ExpectedValueType { get; set; }
 
         // ────────────────────────────────
 
         private readonly TextField _textField;
-        private readonly Button _pickerButton;
 
         public PropertyPathField()
         {
+            var disposables = this.RegisterDisposableBag();
+            
             style.flexDirection = FlexDirection.Row;
             style.alignItems = Align.Center;
 
@@ -52,28 +54,15 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 }
             };
 
-            _pickerButton = new Button(OpenPicker)
-            {
-                text = "⋯",
-                tooltip = "Select property path",
-                style =
-                {
-                    width = 22,
-                    unityTextAlign = TextAnchor.MiddleCenter
-                }
-            };
-
             Add(_textField);
-            Add(_pickerButton);
 
-            // Keep Value in sync with TextField edits
-            _textField.RegisterValueChangedCallback(evt =>
-            {
-                using (ChangeEvent<string>.GetPooled(Value, evt.newValue))
-                {
-                    Value = evt.newValue;
-                }
-            });
+            disposables.Add(
+                _textField.ObserveChanges()
+                    .Subscribe(newText => Value = newText));
+            
+            disposables.Add(
+                _textField.FocusInAsObservable()
+                    .Subscribe(_ => OpenPicker()));
         }
 
         private void OpenPicker()
@@ -85,14 +74,34 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 return;
             }
 
-            UnityEditor.PopupWindow.Show(
-                _pickerButton.worldBound,
-                new PropertyPathPickerPopup(
-                    remoteDataSourceType,
-                    ExpectedValueType,
-                    path => Value = path
-                )
-            );
+            var expectedValueType = Type.GetType(ExpectedValueType);
+            if (expectedValueType == null)
+            {
+                Debug.LogWarning("PropertyPathField: ExpectedValueType is not set.");
+                return;
+            }
+            
+            try
+            {
+                UnityEditor.PopupWindow.Show(
+                    _textField.worldBound,
+                    new PropertyPathPickerPopup(
+                        new Vector2(_textField.resolvedStyle.width, 400),
+                        remoteDataSourceType,
+                        expectedValueType,
+                        path =>
+                        {
+                            Value = path;
+                            NotifyPropertyChanged(new BindingId(nameof(Value)));
+                        })
+                    
+                );
+            }
+            catch (ExitGUIException)
+            {
+                // Ignore
+            }
+
         }
     }
 }

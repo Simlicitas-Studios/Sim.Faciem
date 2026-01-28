@@ -1,20 +1,52 @@
-﻿using R3;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
+using R3;
+using Sim.Faciem.Commands;
 using Unity.Properties;
 using UnityEditor;
 
-namespace Sim.Faciem.uGUI.Editor.BindingWindow
+namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
 {
     public class BindingWindowViewModel : ViewModel<BindingWindowViewModel>, IBindingWindowDataContext
     {
-        private MonoScript _dataSource = null;
+        [CanBeNull]
+        private SimDataSourceMonoBehaviour _dataSource = null;
+
+        private readonly IBindingManipulationProvider _manipulationProvider;
         private string _propertyPath;
         private string _dataSourceType = string.Empty;
+        private string _requiredPropertyType;
+        private List<SimConverterBaseBehaviour> _converters = new();
+        private bool _hasConverterChainError;
 
         [CreateProperty]
-        public MonoScript DataSource
+        public List<SimConverterBaseBehaviour> Converters
+        {
+            get => _converters;
+            set => SetProperty(ref _converters, value);
+        }
+
+        [CreateProperty]
+        public bool HasConverterChainError
+        {
+            get => _hasConverterChainError;
+            set => SetProperty(ref _hasConverterChainError, value);
+        }
+
+        [CreateProperty]
+        [CanBeNull]
+        public SimDataSourceMonoBehaviour DataSource
         {
             get => _dataSource;
             set => SetProperty(ref _dataSource, value);
+        }
+
+        [CreateProperty]
+        public string RequiredPropertyType
+        {
+            get => _requiredPropertyType;
+            set => SetProperty(ref _requiredPropertyType, value);
         }
 
         [CreateProperty]
@@ -30,54 +62,84 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow
             get => _propertyPath;
             set => SetProperty(ref _propertyPath, value);
         }
+        
+        [CreateProperty]
+        public Command AddCommand { get; }
+        
+        [CreateProperty]
+        public Command CancelCommand { get; }
 
         public BindingWindowViewModel(IBindingManipulationProvider manipulationProvider)
         {
+            _manipulationProvider = manipulationProvider;
+
+            var canExecuteAddCommand = Property.Observe(x => x.DataSource)
+                .Prepend(this, vm => vm.DataSource)
+                .CombineLatest(Property.Observe(x => x.PropertyPath)
+                        .Prepend(this, vm => vm.PropertyPath),
+                    Property.Observe(x => x.HasConverterChainError)
+                        .Prepend(this, vm => vm.HasConverterChainError),
+                    (dataSource, path, hasConvertersError) => dataSource != null && !string.IsNullOrEmpty(path) && !hasConvertersError)
+                .ToReadOnlyReactiveProperty();
+            
+            Disposables.Add(canExecuteAddCommand);
+            
+            AddCommand = Command.Execute(SetBinding)
+                .WithCanExecute(canExecuteAddCommand);
+
+            CancelCommand = Command.Execute(CloseWindow);
+            
             Disposables.Add(Property.Observe(x => x.DataSource)
                 .Subscribe(newDataSource =>
                 {
-                    if (manipulationProvider.BindableProperty.CurrentValue != null &&
-                        (!manipulationProvider.BindableProperty.CurrentValue.BindingInfo.DataSource?.Script.Equals(newDataSource) ?? true))
-                    {
-                        manipulationProvider.BindableProperty.CurrentValue.BindingInfo = new SimBindingInfo
-                        {
-                            DataSource = new MonoScriptReference
-                            {
-                                Script = newDataSource,
-                                TypeName = newDataSource.GetClass().AssemblyQualifiedName
-                            },
-                            PropertyPath = new PropertyPath()
-                        };
-                    
-                        manipulationProvider.BindableProperty.ForceNotify();   
-                    }
-                    
                     DataSourceType = newDataSource?.GetInstanceID() != 0 
-                        ? newDataSource?.GetClass().AssemblyQualifiedName ?? string.Empty
+                        ? newDataSource?.GetType().AssemblyQualifiedName ?? string.Empty
                         : string.Empty;
-                }));
-            
-            Disposables.Add(Property.Observe(x => x.PropertyPath)
-                .Select(newPath => new PropertyPath(newPath))
-                .Where(newPath => manipulationProvider.BindableProperty.CurrentValue != null
-                    && !manipulationProvider.BindableProperty.CurrentValue.BindingInfo.PropertyPath.Equals(newPath))
-                .Subscribe(newPath =>
-                {
-                    manipulationProvider.BindableProperty.Value.BindingInfo = new SimBindingInfo
+
+                    if (newDataSource == null)
                     {
-                        DataSource = manipulationProvider.BindableProperty.Value.BindingInfo.DataSource,
-                        PropertyPath = newPath
-                    };
-                    manipulationProvider.BindableProperty.ForceNotify();
+                        PropertyPath = string.Empty;
+                    }
                 }));
             
             Disposables.Add(manipulationProvider
                 .BindableProperty
                 .Subscribe(bindableProperty =>
                 {
-                    DataSource = bindableProperty?.BindingInfo.DataSource?.Script;
+                    DataSource = bindableProperty?.BindingInfo.DataSource;
                     PropertyPath = bindableProperty?.BindingInfo.PropertyPath.ToString();
+                    RequiredPropertyType = bindableProperty?.BoundType?.AssemblyQualifiedName ?? string.Empty;
                 }));
+        }
+
+        protected override UniTask NavigateAway()
+        {
+            PropertyPath = string.Empty;
+            DataSource = null;
+            return UniTask.CompletedTask;
+        }
+
+        private void SetBinding()
+        {
+            if (_manipulationProvider.BindableProperty.CurrentValue == null)
+            {
+                return;
+            }
+            
+            var newBindingInfo = new SimBindingInfo
+            {
+                DataSource = DataSource,
+                PropertyPath = new PropertyPath(PropertyPath)
+            };
+                
+            _manipulationProvider.BindableProperty.CurrentValue.BindingInfo = newBindingInfo;
+            _manipulationProvider.BindableProperty.ForceNotify();
+            CloseWindow();
+        }
+
+        private static void CloseWindow()
+        {
+            EditorWindow.GetWindow<BindingWindow>().Close();
         }
     }
 }

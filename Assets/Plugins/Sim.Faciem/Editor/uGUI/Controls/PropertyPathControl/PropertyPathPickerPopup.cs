@@ -8,6 +8,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
 {
     public sealed class PropertyPathPickerPopup : PopupWindowContent
     {
+        private readonly Vector2 _windowSize;
         private readonly Type _rootType;
         private readonly Type _expectedValueType;
         private readonly Action<string> _onSelected;
@@ -16,17 +17,19 @@ namespace Sim.Faciem.uGUI.Editor.Controls
         private PropertyPathTreeView _treeView;
 
         public PropertyPathPickerPopup(
+            Vector2 windowSize,
             Type rootType,
             Type expectedValueType,
             Action<string> onSelected)
         {
+            _windowSize = windowSize;
             _rootType = rootType;
             _expectedValueType = expectedValueType;
             _onSelected = onSelected;
         }
 
         public override Vector2 GetWindowSize()
-            => new(320, 420);
+            => _windowSize;
 
         public override void OnOpen()
         {
@@ -35,7 +38,12 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 _treeState,
                 _rootType,
                 _expectedValueType,
-                _onSelected);
+                x =>
+                {
+                    _onSelected(x);
+                    editorWindow.Close();
+                    GUIUtility.ExitGUI();
+                });
         }
 
         public override void OnGUI(Rect rect)

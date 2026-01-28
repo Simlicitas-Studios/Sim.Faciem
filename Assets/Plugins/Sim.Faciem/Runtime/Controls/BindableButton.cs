@@ -51,7 +51,7 @@ namespace Sim.Faciem
             
             _commandSubscriptions.Add(
                 _command.Command.CanExecuteObs
-                    .Subscribe(SetEnabled));
+                    .Subscribe(x => SetEnabled(x)));
             
             _commandSubscriptions.Add(
                 _command.Command.IsVisibleObs
