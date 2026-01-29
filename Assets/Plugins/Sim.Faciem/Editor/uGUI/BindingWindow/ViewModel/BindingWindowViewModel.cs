@@ -109,6 +109,7 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
                     DataSource = bindableProperty?.BindingInfo.DataSource;
                     PropertyPath = bindableProperty?.BindingInfo.PropertyPath.ToString();
                     RequiredPropertyType = bindableProperty?.BoundType?.AssemblyQualifiedName ?? string.Empty;
+                    Converters = bindableProperty?.BindingInfo.Converters ??  new List<SimConverterBaseBehaviour>();
                 }));
         }
 
@@ -129,7 +130,8 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
             var newBindingInfo = new SimBindingInfo
             {
                 DataSource = DataSource,
-                PropertyPath = new PropertyPath(PropertyPath)
+                PropertyPath = new SimPropertyPath(PropertyPath),
+                Converters = Converters
             };
                 
             _manipulationProvider.BindableProperty.CurrentValue.BindingInfo = newBindingInfo;

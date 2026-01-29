@@ -371,12 +371,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b459ec6a5a840fd91fc76fdbe159a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textControl: {fileID: 0}
+  _textControl: {fileID: 234619924}
   _text:
     _value: 
     BindingInfo:
-      _propertyPath: SampleText
+      _propertyPath: NestedReactiveItem.$.TestPath
+      BindingType: 0
       DataSource: {fileID: 400667098}
+      Converters:
+      - {fileID: 1453220160}
+      - {fileID: 1313278484}
 --- !u!1 &400667097
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1528539997
 MonoBehaviour:
   m_ObjectHideFlags: 0

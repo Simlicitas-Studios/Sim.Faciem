@@ -57,12 +57,12 @@ namespace Sim.Faciem.uGUI.Editor.Controls
         {
             var root = new TreeViewItem { id = 0, depth = -1 };
             int id = 1;
-
+            
             BuildProperties(
                 root,
                 ref id,
                 _rootType,
-                new PropertyPath());
+                new SimPropertyPath(new PropertyPath()));
 
             return root;
         }
@@ -71,54 +71,58 @@ namespace Sim.Faciem.uGUI.Editor.Controls
             TreeViewItem parent,
             ref int id,
             Type type,
-            PropertyPath path)
+            SimPropertyPath path)
         {
             foreach (var property in PropertyContainerCompat.GetProperties(type))
             {
-                var childPath = path.Append(property.Name);
+                var childPath = SimPropertyPath.AppendPath(path, property.Name);
                 var valueType = property.DeclaredValueType();
 
-                var compatible = CheckCompatibility(valueType);
+                var unpackedType = TryUnpackReactiveTypes(valueType, out var wasReactiveType);
+
+                if (wasReactiveType)
+                {
+                    childPath = SimPropertyPath.AppendSubscription(childPath);
+                }
+
+                var compatible = CheckCompatibility(unpackedType);
 
                 var item = new PropertyPathTreeViewItem(
                     id++,
                     parent.depth + 1,
-                    property.Name,
+                    childPath.ToString(),
                     childPath.ToString());
 
                 if (compatible)
                 {
                     parent.AddChild(item);   
                 }
-
-                if (PropertyContainerCompat.HasProperties(valueType))
+                
+                if (PropertyContainerCompat.HasProperties(unpackedType))
                 {
-                    BuildProperties(item, ref id, valueType, childPath);
+                    BuildProperties(parent, ref id, unpackedType, childPath);
                 }
             }
         }
 
-        private bool CheckCompatibility(Type valueType)
+        private Type TryUnpackReactiveTypes(Type valueType, out bool didUnpack)
         {
-            if (_expectedValueType == null)
-            {
-                return true;
-            }
-
-            if (_expectedValueType.IsAssignableFrom(valueType))
-            {
-                return true;
-            }
-            
+            didUnpack = false;
             if(valueType.IsGenericType && (valueType.GetGenericTypeDefinition() == typeof(Observable<>)
-               || valueType.GetGenericTypeDefinition() == typeof(ReactiveProperty<>)
-               || valueType.GetGenericTypeDefinition() == typeof(ReadOnlyReactiveProperty<>)))
+                                           || valueType.GetGenericTypeDefinition() == typeof(ReactiveProperty<>)
+                                           || valueType.GetGenericTypeDefinition() == typeof(ReadOnlyReactiveProperty<>)))
             {
                 var observableType = valueType.GetGenericArguments().First();
-                return _expectedValueType.IsAssignableFrom(observableType);
+                didUnpack = true;
+                return observableType;
             }
 
-            return false;
+            return valueType;
+        }
+        
+        private bool CheckCompatibility(Type valueType)
+        {
+            return _expectedValueType == null || _expectedValueType.IsAssignableFrom(valueType);
         }
 
         protected override void DoubleClickedItem(int id)

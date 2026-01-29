@@ -37,6 +37,8 @@ namespace Sim.Faciem.Controls
         public HyperLinkLabel()
         {
             var disposables = this.RegisterDisposableBag();
+            disposables.Add(this.AttachToPanelAsObservable()
+                .Subscribe(_ => UpdateText(text)));
             disposables.Add(this.PointerDownAsObservable()
                 .Subscribe(_ => { }));
             disposables.Add(this.ObserveEvent<PointerDownLinkTagEvent>()

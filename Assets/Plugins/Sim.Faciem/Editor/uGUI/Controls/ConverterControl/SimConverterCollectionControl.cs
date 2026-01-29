@@ -229,6 +229,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
                     }));
                 
                 disposables.Add(_chainIssues
+                    .Where(chain => chain != null)
                     .Subscribe(chainIssueList =>
                     {
                         conversionInfo.style.color = chainIssueList.Count > storedIndex && !chainIssueList[storedIndex]
