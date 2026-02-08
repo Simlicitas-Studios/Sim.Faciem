@@ -6,10 +6,14 @@ namespace Game.Runtime.uGUI
     {
         [CreateProperty]
         public string TestPath { get; }
+        
+        [CreateProperty]
+        public bool TestBool { get; }
 
-        public NestedItem(string testPath)
+        public NestedItem(string testPath, bool testBool)
         {
             TestPath = testPath;
+            TestBool = testBool;
         }
     }
 }

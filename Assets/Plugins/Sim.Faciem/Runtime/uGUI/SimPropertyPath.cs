@@ -4,7 +4,7 @@ using Unity.Properties;
 
 namespace Sim.Faciem.uGUI
 {
-    public readonly struct SimPropertyPath
+    public readonly struct SimPropertyPath : IEquatable<SimPropertyPath>
     {
         private const string SubscriptionSymbol = "$";
         
@@ -47,6 +47,11 @@ namespace Sim.Faciem.uGUI
         private static string RemoveStartingDots(string path)
         {
             return path.StartsWith(".") ? path[1..] : path;
+        }
+
+        public bool Equals(SimPropertyPath other)
+        {
+            return Path.Equals(other.Path);
         }
 
         public override string ToString()

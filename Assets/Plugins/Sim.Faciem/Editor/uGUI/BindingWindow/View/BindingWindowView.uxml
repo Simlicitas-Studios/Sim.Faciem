@@ -22,7 +22,8 @@
                     <Bindings>
                         <ui:DataBinding property="DataSourceType" data-source-path="DataSourceType" binding-mode="ToTarget" />
                         <ui:DataBinding property="Value" data-source-path="PropertyPath" binding-mode="TwoWay" />
-                        <ui:DataBinding property="ExpectedValueType" data-source-path="RequiredPropertyType" binding-mode="ToTarget" />
+                        <ui:DataBinding property="ExpectedValueType" data-source-path="RequiredBindingInputType" binding-mode="ToTarget" update-trigger="EveryUpdate" />
+                        <ui:DataBinding property="CurrentValueType" data-source-path="CurrentBindingInputType" binding-mode="ToSource" />
                     </Bindings>
                 </Sim.Faciem.uGUI.Editor.Controls.PropertyPathField>
             </ui:VisualElement>
@@ -31,6 +32,9 @@
                     <ui:DataBinding property="Converters" data-source-path="Converters" binding-mode="ToTarget" />
                     <ui:DataBinding property="HasConverterChainIssues" data-source-path="HasConverterChainError" binding-mode="ToSource" />
                     <ui:DataBinding property="InputType" data-source-path="RequiredPropertyType" binding-mode="ToTarget" />
+                    <ui:DataBinding property="OutputType" data-source-path="RequiredPropertyType" binding-mode="ToTarget" />
+                    <ui:DataBinding property="ExpectedInputType" data-source-path="RequiredBindingInputType" binding-mode="ToSource" />
+                    <ui:DataBinding property="CurrentInputType" data-source-path="CurrentBindingInputType" binding-mode="ToTarget" update-trigger="EveryUpdate" />
                 </Bindings>
             </Sim.Faciem.uGUI.Editor.Controls.ConverterControl.SimConverterCollectionControl>
         </ui:VisualElement>

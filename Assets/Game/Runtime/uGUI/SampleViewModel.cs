@@ -40,7 +40,11 @@ namespace Game.Runtime.uGUI
 
             Observable.Interval(TimeSpan.FromSeconds(1))
                 .Select((_, x) => x)
-                .Subscribe(counter => NestedReactiveItem.Value = new NestedItem($"Seconds Elapsed: {counter}"))
+                .Subscribe(counter =>
+                {
+                    var boolValue = (!NestedReactiveItem.CurrentValue?.TestBool) ?? false;
+                    NestedReactiveItem.Value = new NestedItem($"Seconds Elapsed: {counter}", boolValue);
+                })
                 .AddTo(this);
 
             NestedReactiveItem

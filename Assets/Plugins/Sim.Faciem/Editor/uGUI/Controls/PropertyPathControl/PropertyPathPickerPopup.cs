@@ -11,7 +11,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
         private readonly Vector2 _windowSize;
         private readonly Type _rootType;
         private readonly Type _expectedValueType;
-        private readonly Action<string> _onSelected;
+        private readonly Action<string, Type> _onSelected;
 
         private TreeViewState _treeState;
         private PropertyPathTreeView _treeView;
@@ -20,7 +20,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
             Vector2 windowSize,
             Type rootType,
             Type expectedValueType,
-            Action<string> onSelected)
+            Action<string, Type> onSelected)
         {
             _windowSize = windowSize;
             _rootType = rootType;
@@ -38,9 +38,9 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 _treeState,
                 _rootType,
                 _expectedValueType,
-                x =>
+                (path, type) =>
                 {
-                    _onSelected(x);
+                    _onSelected(path, type);
                     editorWindow.Close();
                     GUIUtility.ExitGUI();
                 });

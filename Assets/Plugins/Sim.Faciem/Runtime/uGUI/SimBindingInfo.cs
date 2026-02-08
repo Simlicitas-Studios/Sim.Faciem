@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Properties;
 using UnityEngine;
 
 namespace Sim.Faciem.uGUI

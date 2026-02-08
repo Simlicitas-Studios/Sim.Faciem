@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Plugins.Sim.Faciem.Shared;
 using R3;
+using Sim.Faciem.uGUI.Editor.Internal;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,7 +21,11 @@ namespace Sim.Faciem.uGUI.Editor.Controls
         public string Value
         {
             get => _textField.value;
-            set => _textField.SetValueWithoutNotify(value);
+            set
+            {
+                _textField.SetValueWithoutNotify(value);
+                EvaluateCurrentType();
+            }
         }
 
         /// <summary>
@@ -32,11 +38,32 @@ namespace Sim.Faciem.uGUI.Editor.Controls
 
         [CreateProperty]
         [UxmlAttribute]
-        public string ExpectedValueType { get; set; }
+        public string ExpectedValueType
+        {
+            get => _expectedValueType;
+            set => _expectedValueType = value;
+        }
+
+        [CreateProperty]
+        [UxmlAttribute]
+        public string CurrentValueType
+        {
+            get => _currentValueType;
+            set
+            {
+                _currentValueType = value;
+                NotifyPropertyChanged(nameof(CurrentValueType));
+            }
+        }
+
 
         // ────────────────────────────────
 
         private readonly TextField _textField;
+
+        private string _expectedValueType;
+
+        private string _currentValueType;
 
         public PropertyPathField()
         {
@@ -65,6 +92,30 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                     .Subscribe(_ => OpenPicker()));
         }
 
+        private void EvaluateCurrentType()
+        {
+            var remoteDataSourceType = Type.GetType(DataSourceType);
+            if (remoteDataSourceType == null || string.IsNullOrEmpty(Value))
+            {
+                return;
+            }
+
+            var path = new SimPropertyPath(Value);
+            var maybeType = FindTypeAtPath(path, remoteDataSourceType);
+
+            CurrentValueType = maybeType != null 
+                ? maybeType.AssemblyQualifiedName 
+                : string.Empty;
+        }
+
+        private Type FindTypeAtPath(SimPropertyPath path, Type currentType)
+        {
+            var maybePath = PropertyContainerCompat.GetAllPropertiesRecursive(currentType)
+                .FirstOrDefault(x => x.Item1.Equals(path));
+
+            return maybePath.Item2;
+        }
+
         private void OpenPicker()
         {
             var remoteDataSourceType = Type.GetType(DataSourceType);
@@ -89,12 +140,12 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                         new Vector2(_textField.resolvedStyle.width, 400),
                         remoteDataSourceType,
                         expectedValueType,
-                        path =>
+                        (path, type) =>
                         {
                             Value = path;
-                            NotifyPropertyChanged(new BindingId(nameof(Value)));
+                            NotifyPropertyChanged(nameof(Value));
+                            CurrentValueType = type.AssemblyQualifiedName;
                         })
-                    
                 );
             }
             catch (ExitGUIException)

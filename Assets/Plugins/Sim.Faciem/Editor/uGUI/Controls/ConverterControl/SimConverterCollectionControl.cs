@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bebop.Monads;
+using JetBrains.Annotations;
 using Plugins.Sim.Faciem.Shared;
 using R3;
 using Unity.Properties;
@@ -17,25 +19,53 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
         private readonly Button _btAddConverter;
         private readonly ReactiveProperty<List<bool>> _chainIssues;
 
-        private string _inputType;
+        private string _outputType;
         private List<SimConverterBaseBehaviour> _converters;
         private bool _hasConverterChainIssues;
+        private string _expectedInputType;
+        private string _currentInputType;
 
         [UxmlAttribute]
         [CreateProperty]
-        public string InputType
+        public string OutputType
         {
-            get => _inputType;
+            get => _outputType;
             set
             {
-                _inputType = value;
+                _outputType = value;
                 EvaluateChain();
             }
         }
 
         [UxmlAttribute]
         [CreateProperty]
-        public string OutputType { get; private set; }
+        [CanBeNull]
+        public string CurrentInputType
+        {
+            get => _currentInputType;
+            set
+            {
+                if (_currentInputType?.Equals(value) ?? false)
+                {
+                    return;
+                }
+                _currentInputType = value;
+                EvaluateChain();
+            }
+        }
+
+        [UxmlAttribute]
+        [CreateProperty]
+        [CanBeNull]
+        public string ExpectedInputType
+        {
+            get => _expectedInputType;
+            private set
+            {
+                _expectedInputType = value;
+                NotifyPropertyChanged(nameof(ExpectedInputType));
+            }
+        }
 
         [UxmlAttribute]
         [CreateProperty]
@@ -88,27 +118,31 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
         {
             var chainIssues = new List<bool>();
             
-            if (string.IsNullOrEmpty(InputType))
+            if (string.IsNullOrEmpty(OutputType))
             {
                 HasConverterChainIssues = true;
+                _chainIssues.Value = chainIssues;
                 return;
             }
             
-            var requiredEndType = Type.GetType(InputType);
+            var requiredEndType = Type.GetType(OutputType);
 
             if (requiredEndType == null)
             {
                 HasConverterChainIssues = true;
+                _chainIssues.Value = chainIssues;
                 return;
             }
 
             if (!_converters.Any())
             {
+                _chainIssues.Value = chainIssues;
                 HasConverterChainIssues = false;
-                OutputType = requiredEndType.AssemblyQualifiedName;
+                ExpectedInputType = requiredEndType.AssemblyQualifiedName;
                 return;
             }
 
+            Type expectedInputType = null;
             Type nextRequiredType = null;
             
             foreach (var converter in _converters)
@@ -128,7 +162,8 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
                 if (nextRequiredType == null)
                 {
                     nextRequiredType = toType;
-                    OutputType = nextRequiredType.AssemblyQualifiedName;
+                    expectedInputType = fromType;
+                    ExpectedInputType = expectedInputType.AssemblyQualifiedName;
                     continue;
                 }
                 
@@ -145,6 +180,25 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
             
             // The last conversion has to result into the required end type
             chainIssues.Add(!requiredEndType.IsAssignableFrom(nextRequiredType));
+            
+            var maybeInputType = Maybe.Nothing<Type>();
+            
+            if (!string.IsNullOrEmpty(CurrentInputType) )
+            {
+                var currentInputType = Type.GetType(CurrentInputType);
+                
+                if (currentInputType != null)
+                {
+                    maybeInputType = currentInputType;
+                }
+            }
+
+            var inputMatches = maybeInputType
+                .Map<bool>(type => type.IsAssignableFrom(expectedInputType))
+                .OrElse(true);
+            
+            // The first converter input must match the current input type if available
+            chainIssues[0] = chainIssues[0] || !inputMatches;
             
             HasConverterChainIssues = chainIssues.Any(issue => issue);
             _chainIssues.Value = chainIssues;
@@ -194,7 +248,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls.ConverterControl
                 
                 var removeButton = new Button(() =>
                 {
-                    _converters.RemoveAt(storedIndex);
+                    _converters.Remove(converter);
                     EvaluateChain();
                     _itemContainer.Remove(itemRoot);
                 })

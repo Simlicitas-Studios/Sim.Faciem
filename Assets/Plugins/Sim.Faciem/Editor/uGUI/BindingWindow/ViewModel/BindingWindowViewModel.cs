@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using R3;
@@ -19,6 +20,8 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
         private string _requiredPropertyType;
         private List<SimConverterBaseBehaviour> _converters = new();
         private bool _hasConverterChainError;
+        private string _requiredBindingInputType;
+        private string _currentBindingInputType;
 
         [CreateProperty]
         public List<SimConverterBaseBehaviour> Converters
@@ -47,6 +50,20 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
         {
             get => _requiredPropertyType;
             set => SetProperty(ref _requiredPropertyType, value);
+        }
+
+        [CreateProperty]
+        public string CurrentBindingInputType
+        {
+            get => _currentBindingInputType;
+            set => SetProperty(ref _currentBindingInputType, value);
+        }
+
+        [CreateProperty]
+        public string RequiredBindingInputType
+        {
+            get => _requiredBindingInputType;
+            set => SetProperty(ref _requiredBindingInputType, value);
         }
 
         [CreateProperty]
@@ -79,10 +96,8 @@ namespace Sim.Faciem.uGUI.Editor.BindingWindow.ViewModel
                         .Prepend(this, vm => vm.PropertyPath),
                     Property.Observe(x => x.HasConverterChainError)
                         .Prepend(this, vm => vm.HasConverterChainError),
-                    (dataSource, path, hasConvertersError) => dataSource != null && !string.IsNullOrEmpty(path) && !hasConvertersError)
-                .ToReadOnlyReactiveProperty();
-            
-            Disposables.Add(canExecuteAddCommand);
+                    (dataSource, path, hasConvertersError) =>
+                        dataSource != null && !string.IsNullOrEmpty(path) && !hasConvertersError);
             
             AddCommand = Command.Execute(SetBinding)
                 .WithCanExecute(canExecuteAddCommand);

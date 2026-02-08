@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using R3;
+using Sim.Faciem.uGUI.Editor.Internal;
 using UnityEditor.IMGUI.Controls;
 using Unity.Properties;
 using UnityEditor;
@@ -12,13 +13,13 @@ namespace Sim.Faciem.uGUI.Editor.Controls
     {
         private readonly Type _rootType;
         private readonly Type _expectedValueType;
-        private readonly Action<string> _onSelected;
+        private readonly Action<string, Type> _onSelected;
 
         public PropertyPathTreeView(
             TreeViewState state,
             Type rootType,
             Type expectedValueType,
-            Action<string> onSelected)
+            Action<string, Type> onSelected)
             : base(state)
         {
             _rootType = rootType;
@@ -27,6 +28,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
 
             Reload();
         }
+        
 
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
@@ -64,6 +66,10 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                 _rootType,
                 new SimPropertyPath(new PropertyPath()));
 
+            if (!root.hasChildren)
+            {
+                root.AddChild(new  TreeViewItem { id = 0, depth = -1 , displayName = "No compatible Properties available!"});
+            }
             return root;
         }
 
@@ -85,16 +91,15 @@ namespace Sim.Faciem.uGUI.Editor.Controls
                     childPath = SimPropertyPath.AppendSubscription(childPath);
                 }
 
-                var compatible = CheckCompatibility(unpackedType);
-
-                var item = new PropertyPathTreeViewItem(
-                    id++,
-                    parent.depth + 1,
-                    childPath.ToString(),
-                    childPath.ToString());
-
-                if (compatible)
+                if (CheckCompatibility(unpackedType))
                 {
+                    var item = new PropertyPathTreeViewItem(
+                        id++,
+                        parent.depth + 1,
+                        childPath.ToString(),
+                        childPath.ToString(),
+                        unpackedType);
+                    
                     parent.AddChild(item);   
                 }
                 
@@ -130,7 +135,7 @@ namespace Sim.Faciem.uGUI.Editor.Controls
             var item = FindItem(id, rootItem);
             if (item is PropertyPathTreeViewItem pathItem)
             {
-                _onSelected?.Invoke(pathItem.PropertyPath);
+                _onSelected?.Invoke(pathItem.PropertyPath, pathItem.PropertyType);
             }
         }
     }
